@@ -15,31 +15,34 @@ public class Patient {
 	private String Phone;
 	private String Email;
 	private int Age;
+        private String Gender;
 	private double Height;
 	private double Weight;
-	private int RoleID;
+	private int AccountID;
 
-    public Patient(int PatientID, String FirstName, String LastName, String Phone, String Email, int Age, double Height, double Weight, int RoleID) {
+    public Patient(int PatientID, String FirstName, String LastName, String Phone, String Email, int Age, String Gender, double Height, double Weight, int AccountID) {
         this.PatientID = PatientID;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
         this.Email = Email;
         this.Age = Age;
+        this.Gender = Gender;
         this.Height = Height;
         this.Weight = Weight;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
-    public Patient(String FirstName, String LastName, String Phone, String Email, int Age, double Height, double Weight, int RoleID) {
+    public Patient(String FirstName, String LastName, String Phone, String Email, int Age, String Gender, double Height, double Weight, int AccountID) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
         this.Email = Email;
         this.Age = Age;
+        this.Gender = Gender;
         this.Height = Height;
         this.Weight = Weight;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
     public Patient() {
@@ -93,6 +96,14 @@ public class Patient {
         this.Age = Age;
     }
 
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String Gender) {
+        this.Gender = Gender;
+    }
+
     public double getHeight() {
         return Height;
     }
@@ -109,18 +120,18 @@ public class Patient {
         this.Weight = Weight;
     }
 
-    public int getRoleID() {
-        return RoleID;
+    public int getAccountID() {
+        return AccountID;
     }
 
-    public void setRoleID(int RoleID) {
-        this.RoleID = RoleID;
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
     }
 
     @Override
     public String toString() {
-        return "Patient{" + "PatientID=" + PatientID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", Age=" + Age + ", Height=" + Height + ", Weight=" + Weight + ", RoleID=" + RoleID + '}';
+        return "Patient{" + "PatientID=" + PatientID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", Age=" + Age + ", Gender=" + Gender + ", Height=" + Height + ", Weight=" + Weight + ", AccountID=" + AccountID + '}';
     }
-        
-        
+
+     
 }

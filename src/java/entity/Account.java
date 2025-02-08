@@ -9,9 +9,18 @@ package entity;
  * @author Admin
  */
 public class Account {
+
+    private int AccountID;
     private String UserName;
-	private int RoleID;
-	private String Password;
+    private int RoleID;
+    private String Password;
+
+    public Account(int AccountID, String UserName, int RoleID, String Password) {
+        this.AccountID = AccountID;
+        this.UserName = UserName;
+        this.RoleID = RoleID;
+        this.Password = Password;
+    }
 
     public Account(String UserName, int RoleID, String Password) {
         this.UserName = UserName;
@@ -21,6 +30,16 @@ public class Account {
 
     public Account() {
     }
+
+    public int getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
+    }
+
+   
 
     public String getUserName() {
         return UserName;
@@ -48,8 +67,9 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "UserName=" + UserName + ", RoleID=" + RoleID + ", Password=" + Password + '}';
+        return "Account{" + "AccountID=" + AccountID + ", UserName=" + UserName + ", RoleID=" + RoleID + ", Password=" + Password + '}';
     }
-                
-               
+
+   
+
 }

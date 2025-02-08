@@ -18,9 +18,9 @@ public class Doctor {
     private String Gender;
     private int DepartmentID;
     private String Bio;
-    private int RoleID;
+    private int AccountID;
 
-    public Doctor(int DoctorID, String FirstName, String LastName, String Phone, String Email, String Gender, int DepartmentID, String Bio, int RoleID) {
+    public Doctor(int DoctorID, String FirstName, String LastName, String Phone, String Email, String Gender, int DepartmentID, String Bio, int AccountID) {
         this.DoctorID = DoctorID;
         this.FirstName = FirstName;
         this.LastName = LastName;
@@ -29,10 +29,10 @@ public class Doctor {
         this.Gender = Gender;
         this.DepartmentID = DepartmentID;
         this.Bio = Bio;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
-    public Doctor(String FirstName, String LastName, String Phone, String Email, String Gender, int DepartmentID, String Bio, int RoleID) {
+    public Doctor(String FirstName, String LastName, String Phone, String Email, String Gender, int DepartmentID, String Bio, int AccountID) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
@@ -40,7 +40,7 @@ public class Doctor {
         this.Gender = Gender;
         this.DepartmentID = DepartmentID;
         this.Bio = Bio;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
     public Doctor() {
@@ -110,17 +110,17 @@ public class Doctor {
         this.Bio = Bio;
     }
 
-    public int getRoleID() {
-        return RoleID;
+    public int getAccountID() {
+        return AccountID;
     }
 
-    public void setRoleID(int RoleID) {
-        this.RoleID = RoleID;
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
     }
 
     @Override
     public String toString() {
-        return "Doctor{" + "DoctorID=" + DoctorID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", Gender=" + Gender + ", DepartmentID=" + DepartmentID + ", Bio=" + Bio + ", RoleID=" + RoleID + '}';
+        return "Doctor{" + "DoctorID=" + DoctorID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", Gender=" + Gender + ", DepartmentID=" + DepartmentID + ", Bio=" + Bio + ", RoleID=" + AccountID + '}';
     }
 
 }

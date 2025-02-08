@@ -14,23 +14,23 @@ public class Staff {
         private String LastName;
 	private String Phone;
 	private String Email;
-	private int RoleID;
+	private int AccountID;
 
-    public Staff(int StaffID, String FirstName, String LastName, String Phone, String Email, int RoleID) {
+    public Staff(int StaffID, String FirstName, String LastName, String Phone, String Email, int AccountID) {
         this.StaffID = StaffID;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
         this.Email = Email;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
-    public Staff(String FirstName, String LastName, String Phone, String Email, int RoleID) {
+    public Staff(String FirstName, String LastName, String Phone, String Email, int AccountID) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
         this.Email = Email;
-        this.RoleID = RoleID;
+        this.AccountID = AccountID;
     }
 
     public Staff() {
@@ -76,17 +76,17 @@ public class Staff {
         this.Email = Email;
     }
 
-    public int getRoleID() {
-        return RoleID;
+    public int getAccountID() {
+        return AccountID;
     }
 
-    public void setRoleID(int RoleID) {
-        this.RoleID = RoleID;
+    public void setRoleID(int AccountID) {
+        this.AccountID = AccountID;
     }
 
     @Override
     public String toString() {
-        return "Staff{" + "StaffID=" + StaffID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", RoleID=" + RoleID + '}';
+        return "Staff{" + "StaffID=" + StaffID + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Phone=" + Phone + ", Email=" + Email + ", RoleID=" + AccountID + '}';
     }
         
         
