@@ -87,7 +87,7 @@ public class DAORole extends DBConnection {
 
     public static void main(String[] args) {
         DAORole dao = new DAORole();
-//        Role roleAdd = new Role("Staff");
+//        Role roleAdd = new Role("Doctor");
 //        int n = dao.addRole(roleAdd);
 //        if(n != 0){
 //            System.out.println("Success");
@@ -96,11 +96,11 @@ public class DAORole extends DBConnection {
 //        if (n != 0) {
 //            System.out.println("Success");
 //        }
-        Role roleUpdate = new Role("Patient");
-        int n = dao.updateRole(roleUpdate, "Doctor");
-        if (n != 0) {
-            System.out.println("Success");
-        }
+//        Role roleUpdate = new Role("Patient");
+//        int n = dao.updateRole(roleUpdate, "Doctor");
+//        if (n != 0) {
+//            System.out.println("Success");
+//        }
 
         Vector<Role> vector = dao.getRole("SELECT *  FROM [dbo].[Role] ");
         for (Role role : vector) {
