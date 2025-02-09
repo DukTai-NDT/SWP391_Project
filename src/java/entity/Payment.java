@@ -15,9 +15,9 @@ public class Payment {
 	private int InvoiceID;
 	private String PaymentMethod;
 	private String PaymentStatus;
-	private Date PaymentDate;
+	private String PaymentDate;
 
-    public Payment(int PaymentID, int InvoiceID, String PaymentMethod, String PaymentStatus, Date PaymentDate) {
+    public Payment(int PaymentID, int InvoiceID, String PaymentMethod, String PaymentStatus, String PaymentDate) {
         this.PaymentID = PaymentID;
         this.InvoiceID = InvoiceID;
         this.PaymentMethod = PaymentMethod;
@@ -25,7 +25,7 @@ public class Payment {
         this.PaymentDate = PaymentDate;
     }
 
-    public Payment(int InvoiceID, String PaymentMethod, String PaymentStatus, Date PaymentDate) {
+    public Payment(int InvoiceID, String PaymentMethod, String PaymentStatus, String PaymentDate) {
         this.InvoiceID = InvoiceID;
         this.PaymentMethod = PaymentMethod;
         this.PaymentStatus = PaymentStatus;
@@ -67,11 +67,11 @@ public class Payment {
         this.PaymentStatus = PaymentStatus;
     }
 
-    public Date getPaymentDate() {
+    public String getPaymentDate() {
         return PaymentDate;
     }
 
-    public void setPaymentDate(Date PaymentDate) {
+    public void setPaymentDate(String PaymentDate) {
         this.PaymentDate = PaymentDate;
     }
 
