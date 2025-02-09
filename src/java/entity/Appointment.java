@@ -12,14 +12,14 @@ import java.util.Date;
  */
 public class Appointment {
     private int AppointmentID;
-	private Date Date;
+	private String Date;
 	private String Time;
 	private int DoctorID;
 	private int StaffID;
 	private int PatientID;
 	private boolean IsConfirm;
 
-    public Appointment(int AppointmentID, Date Date, String Time, int DoctorID, int StaffID, int PatientID, boolean IsConfirm) {
+    public Appointment(int AppointmentID, String Date, String Time, int DoctorID, int StaffID, int PatientID, boolean IsConfirm) {
         this.AppointmentID = AppointmentID;
         this.Date = Date;
         this.Time = Time;
@@ -29,7 +29,7 @@ public class Appointment {
         this.IsConfirm = IsConfirm;
     }
 
-    public Appointment(Date Date, String Time, int DoctorID, int StaffID, int PatientID, boolean IsConfirm) {
+    public Appointment(String Date, String Time, int DoctorID, int StaffID, int PatientID, boolean IsConfirm) {
         this.Date = Date;
         this.Time = Time;
         this.DoctorID = DoctorID;
@@ -49,11 +49,11 @@ public class Appointment {
         this.AppointmentID = AppointmentID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(Date Date) {
+    public void setDate(String Date) {
         this.Date = Date;
     }
 

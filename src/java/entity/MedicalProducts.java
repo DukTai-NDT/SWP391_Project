@@ -16,11 +16,11 @@ public class MedicalProducts {
 	private double Price;
 	private double Quantity;
 	private String Description;
-	private Date MfgDate;
-	private Date ExpDate;
+	private String MfgDate;
+	private String ExpDate;
 	private int CategoriesID;
 
-    public MedicalProducts(int MedicationID, String Name, double Price, double Quantity, String Description, Date MfgDate, Date ExpDate, int CategoriesID) {
+    public MedicalProducts(int MedicationID, String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID) {
         this.MedicationID = MedicationID;
         this.Name = Name;
         this.Price = Price;
@@ -31,7 +31,7 @@ public class MedicalProducts {
         this.CategoriesID = CategoriesID;
     }
 
-    public MedicalProducts(String Name, double Price, double Quantity, String Description, Date MfgDate, Date ExpDate, int CategoriesID) {
+    public MedicalProducts(String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID) {
         this.Name = Name;
         this.Price = Price;
         this.Quantity = Quantity;
@@ -84,19 +84,19 @@ public class MedicalProducts {
         this.Description = Description;
     }
 
-    public Date getMfgDate() {
+    public String getMfgDate() {
         return MfgDate;
     }
 
-    public void setMfgDate(Date MfgDate) {
+    public void setMfgDate(String MfgDate) {
         this.MfgDate = MfgDate;
     }
 
-    public Date getExpDate() {
+    public String getExpDate() {
         return ExpDate;
     }
 
-    public void setExpDate(Date ExpDate) {
+    public void setExpDate(String ExpDate) {
         this.ExpDate = ExpDate;
     }
 
