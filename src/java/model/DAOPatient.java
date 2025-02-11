@@ -123,18 +123,18 @@ public class DAOPatient extends DBConnection {
                     ,ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
             while(re.next()) {
-                int PatientID = re.getInt(1);
+                int PatientID = re.getInt("PatientID");
                 String FirstName = re.getString("FirstName");
                 String LastName = re.getString("LastName");
                 String Phone = re.getString("Phone");
                 String Email = re.getString("Email");
-                int Age = re.getInt(1);
+                int Age = re.getInt("Age");
                 String Gender = re.getString("Gender");
-                Double Height = re.getDouble(2);
-                Double Weight = re.getDouble(2);
-                int AccountID = re.getInt(1);
+                Double Height = re.getDouble("Height");
+                Double Weight = re.getDouble("Weight");
+                int AccountID = re.getInt("AccountID");
                 
-                Patient patient = new Patient(PatientID, FirstName, LastName, Phone, Email, Age, Gender, 0, 0, AccountID);
+                Patient patient = new Patient(PatientID, FirstName, LastName, Phone, Email, Age, Gender, Height, Weight, AccountID);
                 vector.add(patient);
             }
         } catch (SQLException ex) {

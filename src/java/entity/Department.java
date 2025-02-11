@@ -11,14 +11,20 @@ package entity;
 public class Department {
     private int DepartmentID;
 	private String DepartmentName;
+        private String Description;
+        private String Icon;
 
-    public Department(int DepartmentID, String DepartmentName) {
+    public Department(int DepartmentID, String DepartmentName, String Description,String Icon) {
         this.DepartmentID = DepartmentID;
         this.DepartmentName = DepartmentName;
+        this.Description = Description;
+        this.Icon = Icon;
     }
 
-    public Department(String DepartmentName) {
+    public Department(String DepartmentName, String Description,String Icon) {
         this.DepartmentName = DepartmentName;
+        this.Description = Description;
+        this.Icon = Icon;
     }
 
     public Department() {
@@ -40,10 +46,30 @@ public class Department {
         this.DepartmentName = DepartmentName;
     }
 
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public String getIcon() {
+        return Icon;
+    }
+
+    public void setIcon(String Icon) {
+        this.Icon = Icon;
+    }
+
     @Override
     public String toString() {
-        return "Department{" + "DepartmentID=" + DepartmentID + ", DepartmentName=" + DepartmentName + '}';
+        return "Department{" + "DepartmentID=" + DepartmentID + ", DepartmentName=" + DepartmentName + ", Description=" + Description + ", Icon=" + Icon + '}';
     }
+    
+    
+    
+    
         
         
 }

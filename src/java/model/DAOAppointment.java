@@ -108,12 +108,12 @@ public class DAOAppointment extends DBConnection {
                     ,ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
             while(re.next()){
-                int AppointmentID = re.getInt(1);
+                int AppointmentID = re.getInt("AppointmentID");
                 String Date = re.getString("Date");
                 String Time = re.getString("Time");
-                int DoctorID = re.getInt(2);
-                int StaffID = re.getInt(3);
-                int PatientID = re.getInt(4);
+                int DoctorID = re.getInt("DoctorID");
+                int StaffID = re.getInt("StaffID");
+                int PatientID = re.getInt("PatientID");
                 boolean IsConfirm = (re.getInt("IsConfirm")==1?true:false);
                 
                 Appointment appo = new Appointment(AppointmentID, Date, Time, DoctorID, StaffID, PatientID, IsConfirm);

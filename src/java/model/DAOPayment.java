@@ -97,8 +97,8 @@ public class DAOPayment extends DBConnection {
                     ,ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
             while(re.next()){
-                int PaymentID = re.getInt(1);
-                int InvoiceID = re.getInt(1);
+                int PaymentID = re.getInt("PaymentID");
+                int InvoiceID = re.getInt("InvoiceID");
                 String PaymentMethod = re.getString("PaymentMethod");
                 String PaymentStatus = re.getString("PaymentStatus");
                 String PaymentDate = re.getString("PaymentDate");

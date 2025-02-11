@@ -112,14 +112,14 @@ public class DAOMedicalProducts extends DBConnection {
                     ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
             while (re.next()) {
-                int MedicationID = re.getInt(1);
+                int MedicationID = re.getInt("MedicationID");
                 String Name = re.getString("Name");
-                double Price = re.getDouble(2);
-                double Quantity = re.getDouble(3);
+                double Price = re.getDouble("Price");
+                double Quantity = re.getDouble("Quantity");
                 String Description = re.getString("Description");
                 String MfgDate = re.getString("MfgDate");
                 String ExpDate = re.getString("ExpDate");;
-                int CategoriesID = re.getInt(4);
+                int CategoriesID = re.getInt("CategoriesID");
                 
                 MedicalProducts medical = new MedicalProducts(MedicationID, Name, Price, Quantity, Description, MfgDate, ExpDate, CategoriesID);
                 vector.add(medical);

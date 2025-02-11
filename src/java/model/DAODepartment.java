@@ -21,12 +21,14 @@ public class DAODepartment extends DBConnection {
 
     public int addDepartment(Department other) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Department] ([DepartmentName])\n"
-                + "VALUES(?)";
+        String sql = "INSERT INTO [dbo].[Department] ([DepartmentName], [Description],[Icon])\n"
+                + "VALUES(?,?,?)";
 
         try {
             PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, other.getDepartmentName());
+            preState.setString(2, other.getDescription());
+            preState.setString(3, other.getIcon());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,7 +39,7 @@ public class DAODepartment extends DBConnection {
     public int deleteDepartment(String DepartmentName) {
         int n = 0;
         String sql = "DELETE FROM [dbo].[Department]\n"
-                + "      WHERE Department.DepartmentName like '"+DepartmentName+"'";
+                + "      WHERE Department.DepartmentName like '" + DepartmentName + "'";
 
         try {
             Statement state = conn.createStatement();
@@ -52,11 +54,15 @@ public class DAODepartment extends DBConnection {
         int n = 0;
         String sql = "UPDATE [dbo].[Department]\n"
                 + "   SET [DepartmentName] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[Icon] = ?\n"
                 + " WHERE Department.DepartmentID = ?";
         try {
             PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, other.getDepartmentName());
-            preState.setInt(2, other.getDepartmentID());
+            preState.setString(2, other.getDescription());
+            preState.setString(3, other.getIcon());
+            preState.setInt(4, other.getDepartmentID());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +78,9 @@ public class DAODepartment extends DBConnection {
             while (rs.next()) {
                 int DepartmentID = rs.getInt("DepartmentID");
                 String DepartmentName = rs.getString("DepartmentName");
-                Department department = new Department(DepartmentID, DepartmentName);
+                String Description = rs.getString("Description");
+                String Icon = rs.getString("Icon");
+                Department department = new Department(DepartmentID, DepartmentName,Description,Icon);
                 vector.add(department);
             }
         } catch (SQLException ex) {
@@ -80,22 +88,20 @@ public class DAODepartment extends DBConnection {
         }
         return vector;
     }
-     public static void main(String[] args) {
+
+    public static void main(String[] args) {
         DAODepartment dao = new DAODepartment();
 
 //        Department departAdd = new Department("NhaKhoa");
 //        int n = dao.addDepartment(departAdd);
-
 //        Department departUpdate = new Department(2, "KhoaNoi");
 //        int n = dao.updateDepartment(departUpdate);
-
 //        int n = dao.deleteDepartment("khoanoi");
 //        System.out.println(n);
-
         Vector<Department> vector = dao.getDepartment("select * from Department");
         for (Department department : vector) {
             System.out.println(department);
-            
+
         }
     }
 }

@@ -90,10 +90,44 @@ public class DAOAccount extends DBConnection {
         
         return vector;
     } 
+    public Account getLogin(String userName, String password){
+        Account account = null;
+        String sql = "select * from Account where Account.Username = ? and Account.Password = ?";
+        try {
+            PreparedStatement preState = conn.prepareStatement(sql);
+            preState.setString(1, userName);
+            preState.setString(2, password);
+            ResultSet rs = preState.executeQuery();
+            while (rs.next()) {
+            account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return account;
+    }
+    public int getLastAccountID(){
+         int n = 0;
+        String sql = "  SELECT top(1) * FROM Account ORDER BY AccountID DESC ";
+         try {
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = state.executeQuery(sql);
+            while (rs.next()) {                
+                n = rs.getInt("AccountID");
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    
+    
     public static void main(String[] args) {
         DAOAccount dao = new DAOAccount();
-        Account accountAdd = new Account("Tainguyenduc", 2, "abcd123");
-        int n = dao.addAccount(accountAdd);
+//        Account accountAdd = new Account("Tainguyenduc", 2, "abcd123");
+//        int n = dao.addAccount(accountAdd);
         
 //    int n = dao.deleteAccount(1);
 
@@ -106,5 +140,7 @@ public class DAOAccount extends DBConnection {
         for (Account account : vector) {
             System.out.println(account);
         }
+        System.out.println("-------------");
+        System.out.println(dao.getLastAccountID());
     }
 }

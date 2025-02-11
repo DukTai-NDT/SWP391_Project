@@ -93,12 +93,12 @@ public class DAOStaff extends DBConnection {
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = state.executeQuery(sql);
             while(rs.next()){
-                int StaffID = rs.getInt(1);
+                int StaffID = rs.getInt("StaffID");
                 String FirstName = rs.getString("FirstName");
                 String LastName = rs.getString("LastName");
                 String Phone = rs.getString("Phone");
                 String Email = rs.getString("Email");
-                int AccountID = rs.getInt(1);
+                int AccountID = rs.getInt("AccountID");
                 
                 Staff staff = new Staff(StaffID, FirstName, LastName, Phone, Email, AccountID);
                 vector.add(staff);
