@@ -29,6 +29,7 @@ public class DAOMedicalProducts extends DBConnection {
                 + "           ,[MfgDate]\n"
                 + "           ,[ExpDate]\n"
                 + "           ,[CategoriesID])\n"
+                + "           ,[Image])"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
@@ -36,8 +37,8 @@ public class DAOMedicalProducts extends DBConnection {
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
+                + "           ,?\n"
                 + "           ,?)";
-
         PreparedStatement preState;
 
         try {
@@ -49,6 +50,7 @@ public class DAOMedicalProducts extends DBConnection {
             preState.setString(5, medical.getMfgDate());
             preState.setString(6, medical.getExpDate());
             preState.setInt(7, medical.getCategoriesID());
+            preState.setString(8, medical.getImage());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOMedicalProducts.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,6 +85,7 @@ public class DAOMedicalProducts extends DBConnection {
                 + "      ,[MfgDate] = ?\n"
                 + "      ,[ExpDate] = ?\n"
                 + "      ,[CategoriesID] = ?\n"
+                + "      ,[Image] = ?\n"
                 + " WHERE MedicationID = ?";
 
         PreparedStatement preState;
@@ -96,7 +99,8 @@ public class DAOMedicalProducts extends DBConnection {
             preState.setString(5, medical.getMfgDate());
             preState.setString(6, medical.getExpDate());
             preState.setInt(7, medical.getCategoriesID());
-            preState.setInt(8, medical.getMedicationID());
+            preState.setString(8, medical.getImage());
+            preState.setInt(9, medical.getMedicationID());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOMedicalProducts.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,16 +116,17 @@ public class DAOMedicalProducts extends DBConnection {
                     ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
             while (re.next()) {
-                int MedicationID = re.getInt(1);
+                int MedicationID = re.getInt("MedicationID");
                 String Name = re.getString("Name");
-                double Price = re.getDouble(2);
-                double Quantity = re.getDouble(3);
+                double Price = re.getDouble("Price");
+                double Quantity = re.getDouble("Quantity");
                 String Description = re.getString("Description");
                 String MfgDate = re.getString("MfgDate");
                 String ExpDate = re.getString("ExpDate");;
-                int CategoriesID = re.getInt(4);
+                int CategoriesID = re.getInt("CategoriesID");
+                String Image = re.getString("Image");
                 
-                MedicalProducts medical = new MedicalProducts(MedicationID, Name, Price, Quantity, Description, MfgDate, ExpDate, CategoriesID);
+                MedicalProducts medical = new MedicalProducts(MedicationID, Name, Price, Quantity, Description, MfgDate, ExpDate, CategoriesID, Image);
                 vector.add(medical);
             }
 
@@ -130,6 +135,16 @@ public class DAOMedicalProducts extends DBConnection {
                     .getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
+    }
+    
+    public static void main(String[] args) {
+        DAOMedicalProducts dao = new DAOMedicalProducts();
+        Vector<MedicalProducts> vector = dao.getMedicalProducts("select * from MedicalProducts");
+        for (MedicalProducts medical : vector){
+            System.out.println(medical);
+            medical.getName();
+        }
+        
     }
 
 }

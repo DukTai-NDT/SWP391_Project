@@ -19,8 +19,9 @@ public class MedicalProducts {
 	private String MfgDate;
 	private String ExpDate;
 	private int CategoriesID;
+        private String Image;
 
-    public MedicalProducts(int MedicationID, String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID) {
+    public MedicalProducts(int MedicationID, String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID, String Image) {
         this.MedicationID = MedicationID;
         this.Name = Name;
         this.Price = Price;
@@ -29,9 +30,10 @@ public class MedicalProducts {
         this.MfgDate = MfgDate;
         this.ExpDate = ExpDate;
         this.CategoriesID = CategoriesID;
+        this.Image = Image;
     }
 
-    public MedicalProducts(String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID) {
+    public MedicalProducts(String Name, double Price, double Quantity, String Description, String MfgDate, String ExpDate, int CategoriesID, String Image) {
         this.Name = Name;
         this.Price = Price;
         this.Quantity = Quantity;
@@ -39,6 +41,7 @@ public class MedicalProducts {
         this.MfgDate = MfgDate;
         this.ExpDate = ExpDate;
         this.CategoriesID = CategoriesID;
+        this.Image = Image;
     }
 
     public MedicalProducts() {
@@ -107,6 +110,15 @@ public class MedicalProducts {
     public void setCategoriesID(int CategoriesID) {
         this.CategoriesID = CategoriesID;
     }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String Image) {
+        this.Image = Image;
+    }
+    
 
     @Override
     public String toString() {
