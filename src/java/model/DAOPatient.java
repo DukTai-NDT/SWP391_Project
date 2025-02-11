@@ -1,51 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import entity.Patient;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author quang
- */
 public class DAOPatient extends DBConnection {
 
     public int addPatient(Patient other) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Patient]\n"
-                + "           ([FirstName]\n"
-                + "           ,[LastName]\n"
-                + "           ,[Phone]\n"
-                + "           ,[Email]\n"
-                + "           ,[Age]\n"
-                + "           ,[Gender]\n"
-                + "           ,[Height]\n"
-                + "           ,[Weight]\n"
-                + "           ,[AccountID])\n"
-                + "     VALUES\n"
-                + "           (?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?\n"
-                + "           ,?)";
-
-        PreparedStatement preState;
+        String sql = "INSERT INTO [dbo].[Patient] "
+                + "([FirstName], [LastName], [Phone], [Email], [Age], [Gender], [Height], [Weight], [AccountID], [Birthday], [Address]) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            preState = conn.prepareStatement(sql);
+            PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, other.getFirstName());
             preState.setString(2, other.getLastName());
             preState.setString(3, other.getPhone());
@@ -55,22 +26,24 @@ public class DAOPatient extends DBConnection {
             preState.setDouble(7, other.getHeight());
             preState.setDouble(8, other.getWeight());
             preState.setInt(9, other.getAccountID());
+            preState.setDate(10, Date.valueOf(other.getBirthday())); 
+            preState.setString(11, other.getAddress());
+
             n = preState.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPatient.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return n;
     }
 
     public int deletePatient(int PatientID) {
         int n = 0;
-        String sql = "DELETE FROM [dbo].[Patient]\n"
-                + "      WHERE PatientID = " + PatientID + "";
-        Statement state;
-
+        String sql = "DELETE FROM [dbo].[Patient] WHERE PatientID = ?";
+        
         try {
-            state = conn.createStatement();
-            n = state.executeUpdate(sql);
+            PreparedStatement preState = conn.prepareStatement(sql);
+            preState.setInt(1, PatientID);
+            n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOPatient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,22 +53,18 @@ public class DAOPatient extends DBConnection {
 
     public int updatePatient(Patient patient) {
         int n = 0;
-        String sql = "UPDATE [dbo].[Patient]\n"
-                + "   SET [FirstName] = ?\n"
-                + "      ,[LastName] = ?\n"
-                + "      ,[Phone] = ?\n"
-                + "      ,[Email] = ?\n"
-                + "      ,[Age] = ?\n"
-                + "      ,[Gender] = ?\n"
-                + "      ,[Height] = ?\n"
-                + "      ,[Weight] = ?\n"
-                + "      ,[AccountID] = ?\n"
-                + " WHERE PatientID = ?";
-        
-        PreparedStatement preState;
-        
+        String sql = "UPDATE [dbo].[Patient] SET "
+                + "FirstName = ?, LastName = ?, Phone = ?, Email = ?, Age = ?, Gender = ?, "
+                + "Height = ?, Weight = ?, Birthday = ?, Address = ? "
+                + "WHERE PatientID = ?";
+
+        if (conn == null) {
+            System.out.println("Database connection is null!");
+            return 0;
+        }
+
         try {
-            preState = conn.prepareStatement(sql);
+            PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, patient.getFirstName());
             preState.setString(2, patient.getLastName());
             preState.setString(3, patient.getPhone());
@@ -104,43 +73,69 @@ public class DAOPatient extends DBConnection {
             preState.setString(6, patient.getGender());
             preState.setDouble(7, patient.getHeight());
             preState.setDouble(8, patient.getWeight());
-            preState.setInt(9, patient.getAccountID());
-            preState.setInt(10, patient.getPatientID());
+            preState.setDate(9, Date.valueOf(patient.getBirthday())); 
+            preState.setString(10, patient.getAddress());
+            preState.setInt(11, patient.getPatientID());
+
+            System.out.println("Executing Update: " + preState.toString()); 
+
             n = preState.executeUpdate();
+
+            if (n > 0) {
+                System.out.println("Update successful!");
+            } else {
+                System.out.println("Update failed! No patient found with ID " + patient.getPatientID());
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPatient.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println("SQL Error: " + ex.getMessage());
         }
-        
+
         return n;
     }
-    
-    public Vector<Patient> getPatient (String sql ) {
-        Vector<Patient> vector = new Vector<Patient>();
-        
-        Statement state;
+
+    public Vector<Patient> getPatient(String sql) {
+        Vector<Patient> vector = new Vector<>();
+
         try {
-            state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE
-                    ,ResultSet.CONCUR_UPDATABLE);
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet re = state.executeQuery(sql);
-            while(re.next()) {
-                int PatientID = re.getInt(1);
+            while (re.next()) {
+                int PatientID = re.getInt("PatientID");
                 String FirstName = re.getString("FirstName");
                 String LastName = re.getString("LastName");
                 String Phone = re.getString("Phone");
                 String Email = re.getString("Email");
-                int Age = re.getInt(1);
+                int Age = re.getInt("Age");
                 String Gender = re.getString("Gender");
-                Double Height = re.getDouble(2);
-                Double Weight = re.getDouble(2);
-                int AccountID = re.getInt(1);
-                
-                Patient patient = new Patient(PatientID, FirstName, LastName, Phone, Email, Age, Gender, 0, 0, AccountID);
+                Double Height = re.getDouble("Height");
+                Double Weight = re.getDouble("Weight");
+                int AccountID = re.getInt("AccountID");
+                LocalDate Birthday = re.getDate("Birthday").toLocalDate(); 
+                String Address = re.getString("Address");
+
+                Patient patient = new Patient(PatientID, FirstName, LastName, Phone, Email, Age, Gender, Height, Weight, AccountID, Birthday, Address, "");
                 vector.add(patient);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOPatient.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
         return vector;
+    }
+
+    public static void main(String[] args) {
+        DAOPatient dao = new DAOPatient();
+
+        // Kiểm thử cập nhật Patient có ID = 16
+        int x = dao.updatePatient(new Patient(16, "Nguyen", "Ba Quang", "1234", "bok@gmail.com",
+                12, "MALE", 190, 80, 1, LocalDate.of(2012, 5, 20), "Hanoi", "This is my bio."));
+
+        if (x > 0) {
+            System.out.println("Update successful!");
+        } else {
+            System.out.println("Update failed!");
+        }
     }
 }
