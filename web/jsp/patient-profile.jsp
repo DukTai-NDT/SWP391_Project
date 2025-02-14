@@ -32,7 +32,11 @@
 
     </head>
 
-   
+    <%
+         Vector<Patient> vectorPatient =(Vector<Patient>) request.getAttribute("vectorPatient");
+         Patient pa = (Patient)vectorPatient.get(0);
+    
+    %>
 
     <body>
         <!-- Loader -->
@@ -192,11 +196,7 @@
             </div><!--end container-->
         </header><!--end header-->
         <!-- Navbar End -->
- <%
-         Vector<Patient> vectorPatient =(Vector<Patient>) request.getAttribute("vectorPatient");
-         Patient pa = (Patient)vectorPatient.get(0);
-    
-    %>
+
         <!-- Start -->
         <section class="bg-hero">
             <div class="container">
