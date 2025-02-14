@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
     <head>
         <meta charset="utf-8" />
@@ -24,7 +24,7 @@
         <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
 
     </head>
-<% String message = (String)request.getAttribute("message"); 
+    <% String message = (String)request.getAttribute("message"); 
     %>
     <body>
         <!-- Loader -->
@@ -37,7 +37,7 @@
             </div>
         </div>
         <!-- Loader -->
-        
+
         <div class="back-to-home rounded d-none d-sm-block">
             <a href="index.jsp" class="btn btn-icon btn-primary"><i data-feather="home" class="icons"></i></a>
         </div>
@@ -82,7 +82,7 @@
                                         <p style="color: red;"><%=(message!=null?message:"")%></p>
                                         <div class="col-lg-12 mb-0">
                                             <div class="d-grid">
-                                                
+
                                                 <button class="btn btn-primary" name="submit" value="login">Sign in</button>
                                             </div>
                                         </div>
@@ -90,16 +90,16 @@
                                         <div class="col-lg-12 mt-3 text-center">
                                             <h6 class="text-muted">Or</h6>
                                         </div><!--end col-->
-                                        
-                                        <div class="col-6 mt-3">
+
+<!--                                        <div class="col-6 mt-3">
                                             <div class="d-grid">
-                                                <a href="#" class="btn btn-soft-primary"><i class="uil uil-facebook"></i> Facebook</a>
+                                                <a href="https://www.facebook.com/v19.0/dialog/oauth?fields=id,name,email&client_id=626107953499199&redirect_uri=http://localhost:8080/SWP391/LoginURL&service=loginWithFaceBook" class="btn btn-soft-primary"><i class="uil uil-facebook"></i> Facebook</a>
                                             </div>
-                                        </div><!--end col-->
-                                        
+                                        </div>end col-->
+
                                         <div class="col-6 mt-3">
                                             <div class="d-grid">
-                                                <a href="#" class="btn btn-soft-primary"><i class="uil uil-google"></i> Google</a>
+                                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/SWP391/LoginURL&response_type=code&client_id=585107335180-i8g585qjpvmq8rvslrel6lkgqv39fjt5.apps.googleusercontent.com&approval_prompt=force" class="btn btn-soft-primary"><i class="uil uil-google"></i> Google</a>
                                             </div>
                                         </div><!--end col-->
 
@@ -115,14 +115,14 @@
             </div> <!--end container-->
         </section><!--end section-->
         <!-- Hero End -->
-        
+
         <!-- javascript -->
         <script src="js/bootstrap.bundle.min.js"></script>
         <!-- Icons -->
         <script src="js/feather.min.js"></script>
         <!-- Main Js -->
         <script src="js/app.js"></script>
-        
+
     </body>
 
 </html>

@@ -14,18 +14,21 @@ public class Account {
     private String UserName;
     private int RoleID;
     private String Password;
+    private String Email;
 
-    public Account(int AccountID, String UserName, int RoleID, String Password) {
+    public Account(int AccountID, String UserName, int RoleID, String Password,String Email) {
         this.AccountID = AccountID;
         this.UserName = UserName;
         this.RoleID = RoleID;
         this.Password = Password;
+        this.Email = Email;
     }
 
-    public Account(String UserName, int RoleID, String Password) {
+    public Account(String UserName, int RoleID, String Password,String Email) {
         this.UserName = UserName;
         this.RoleID = RoleID;
         this.Password = Password;
+        this.Email = Email;
     }
 
     public Account() {
@@ -65,10 +68,20 @@ public class Account {
         this.Password = Password;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "AccountID=" + AccountID + ", UserName=" + UserName + ", RoleID=" + RoleID + ", Password=" + Password + '}';
+        return "Account{" + "AccountID=" + AccountID + ", UserName=" + UserName + ", RoleID=" + RoleID + ", Password=" + Password + ", Email=" + Email + '}';
     }
+    
+    
 
    
 

@@ -21,14 +21,15 @@ public class DAOAccount extends DBConnection {
 
     public int addAccount(Account other) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Account]([Username],[RoleID],[Password])\n"
+        String sql = "INSERT INTO [dbo].[Account]([Username],[RoleID],[Password],[Email])\n"
                 + "     VALUES\n"
-                + "           (?,?,?)";
+                + "           (?,?,?,?)";
         try {
             PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, other.getUserName());
             preState.setInt(2, other.getRoleID());
             preState.setString(3, other.getPassword());
+            preState.setString(4, other.getEmail());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,13 +57,16 @@ public class DAOAccount extends DBConnection {
                 + "   SET [Username] = ?\n"
                 + "      ,[RoleID] = ?\n"
                 + "      ,[Password] = ?\n"
+                + "      ,[Email] = ?\n"
                 + " WHERE Account.AccountID = ?";
         try {
             PreparedStatement preState = conn.prepareStatement(sql);
             preState.setString(1, other.getUserName());
             preState.setInt(2, other.getRoleID());
             preState.setString(3, other.getPassword());
-            preState.setInt(4,other.getAccountID());
+            preState.setString(4, other.getEmail());
+
+            preState.setInt(5, other.getAccountID());
             n = preState.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,27 +74,29 @@ public class DAOAccount extends DBConnection {
         return n;
 
     }
-    
-    public Vector<Account> getAccount(String sql){
+
+    public Vector<Account> getAccount(String sql) {
         Vector<Account> vector = new Vector<>();
         try {
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = state.executeQuery(sql);
-            while(rs.next()){
-              int AccountID = rs.getInt("AccountID");
-              String UserName = rs.getString("UserName");
-              int RoleID = rs.getInt("RoleID");
-              String Password = rs.getString("Password");
-              Account account = new Account(AccountID, UserName, RoleID, Password);
-              vector.add(account);
+            while (rs.next()) {
+                int AccountID = rs.getInt("AccountID");
+                String UserName = rs.getString("UserName");
+                int RoleID = rs.getInt("RoleID");
+                String Password = rs.getString("Password");
+                String Email = rs.getString("Email");
+                Account account = new Account(AccountID, UserName, RoleID, Password,Email);
+                vector.add(account);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return vector;
-    } 
-    public Account getLogin(String userName, String password){
+    }
+
+    public Account getLogin(String userName, String password) {
         Account account = null;
         String sql = "select * from Account where Account.Username = ? and Account.Password = ?";
         try {
@@ -99,48 +105,67 @@ public class DAOAccount extends DBConnection {
             preState.setString(2, password);
             ResultSet rs = preState.executeQuery();
             while (rs.next()) {
-            account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4));
-                
+                account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4),rs.getString(5));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         return account;
     }
-    public int getLastAccountID(){
-         int n = 0;
+
+    public int getLastAccountID() {
+        int n = 0;
         String sql = "  SELECT top(1) * FROM Account ORDER BY AccountID DESC ";
-         try {
+        try {
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = state.executeQuery(sql);
-            while (rs.next()) {                
+            while (rs.next()) {
                 n = rs.getInt("AccountID");
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         return n;
     }
-    
-    
+
+    public Vector<String> getEmailAccount() {
+        Vector<String> listEmail = new Vector<>();
+        String sql = "select Email from Account";
+        try {
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = state.executeQuery(sql);
+            while (rs.next()) {
+                listEmail.add(rs.getString("Email"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listEmail;
+    }
+
     public static void main(String[] args) {
         DAOAccount dao = new DAOAccount();
 //        Account accountAdd = new Account("Tainguyenduc", 2, "abcd123");
 //        int n = dao.addAccount(accountAdd);
-        
-//    int n = dao.deleteAccount(1);
 
+//    int n = dao.deleteAccount(1);
 //          Account accountUpdate = new Account(2, "TaiNguye", 1, "cde123");
 //          int n = dao.updateAccount(accountUpdate);
-          
 //        System.out.println(n);
-
         Vector<Account> vector = dao.getAccount("SELECT *  FROM [dbo].[Account] ");
         for (Account account : vector) {
             System.out.println(account);
         }
         System.out.println("-------------");
-        System.out.println(dao.getLastAccountID());
+        Vector<String> stringVector = dao.getEmailAccount();
+        String acc = "dungnt@gmail.com";
+        for (Object object : stringVector) {
+            if (acc.equals(object)) {
+                System.out.println("ok");
+            }
+        }
     }
 }

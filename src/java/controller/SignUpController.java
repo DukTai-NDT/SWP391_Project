@@ -5,6 +5,7 @@
 package controller;
 
 import entity.Account;
+import entity.GoogleAccount;
 import entity.Patient;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +15,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Random;
 import java.util.Vector;
 import model.DAOAccount;
+import model.DAOGoogleLogin;
 import model.DAOPatient;
 
 /**
@@ -42,37 +45,91 @@ public class SignUpController extends HttpServlet {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             String service = request.getParameter("service");
+            String code = request.getParameter("code");
+            if(service == null){
+                service = "signupGoogle";
+            }
+            if ("signupGoogle".equals(service) && code != null) {
+                DAOGoogleLogin daoGoogle = new DAOGoogleLogin();
+
+                String accessToken = daoGoogle.getTokenSignUp(code);
+                GoogleAccount acc = daoGoogle.getUserInfo(accessToken);
+                Vector<Account> vectorAcc = dao.getAccount("Select * from Account");
+                
+                boolean userExists = false;
+                for (Account account : vectorAcc) {
+                    if (acc.getEmail().equals(account.getEmail())) {
+                       
+                        userExists = true;
+                        break; // Exit loop early if user exists
+                    }
+                }
+
+                if (userExists) {
+                    request.setAttribute("message", "account already exists. Please login");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else {
+                    int n = dao.addAccount(new Account(acc.getName(), 1002, getRandom(6),acc.getEmail()));
+                    Patient patient = new Patient(acc.getFirst_name(), acc.getFamily_name(), null, acc.getEmail(), 0, null, 0, 0, dao.getLastAccountID());
+
+                    
+                    request.setAttribute("message", "Sign up successfully. Please login");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+            }
+            
+           
+
             if (service.equals("signup")) {
                 String FirstName = request.getParameter("FirstName");
                 String LastName = request.getParameter("LastName");
                 String UserName = request.getParameter("UserName");
                 String Email = request.getParameter("Email");
                 String Password = request.getParameter("Password");
-                
+
                 Vector<Patient> vector = new Vector<>();
                 int cnt = 0;
                 for (Patient patient : vector) {
-                    if(patient.getEmail().equals(Email)){
-                        cnt ++;
+                    if (patient.getEmail().equals(Email)) {
+                        cnt++;
                     }
                 }
-                if(cnt !=0){
+                if (cnt != 0) {
                     request.setAttribute("accountExist", "Account already exist!!!");
                     request.getRequestDispatcher("signup.jsp").forward(request, response);
-                }else{
-                    int n = dao.addAccount(new Account(UserName, 1002, Password));
-                    if(n == 0){
+                } else {
+                    int n = dao.addAccount(new Account(UserName, 1002, Password,Email));
+                    if (n == 0) {
                         request.setAttribute("accountFail", "Can not to signup !!!");
-                    request.getRequestDispatcher("signup.jsp").forward(request, response);
-                    }else{
+                        request.getRequestDispatcher("signup.jsp").forward(request, response);
+                    } else {
                         Patient patient = new Patient(FirstName, LastName, null, Email, 0, null, 0, 0, dao.getLastAccountID());
-                        int x =daoPatient.addPatient(patient);
+                        int x = daoPatient.addPatient(patient);
                         response.sendRedirect("LoginURL?service=login");
                     }
                 }
 
             }
         }
+    }
+
+        public static String getRandom(int length) {
+        String alpha = "";
+        String number = "0123456789";
+        String alphaNumeric = "";
+        char c = 'A';
+        while (c <= 'Z') {
+            alpha += c;
+            c++;
+        }
+        alphaNumeric = alpha + alpha.toLowerCase() + number;
+        String captchaGen = "";
+
+        for (int i = 0; i < length; i++) {
+            captchaGen += alphaNumeric.charAt(new Random().nextInt(alphaNumeric.length()));
+        }
+        return captchaGen;
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

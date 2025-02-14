@@ -111,15 +111,15 @@
                                             <h6 class="text-muted">Or</h6>
                                         </div><!--end col-->
 
-                                        <div class="col-6 mt-3">
+<!--                                        <div class="col-6 mt-3">
                                             <div class="d-grid">
                                                 <a href="javascript:void(0)" class="btn btn-soft-primary"><i class="uil uil-facebook"></i> Facebook</a>
                                             </div>
-                                        </div><!--end col-->
+                                        </div>end col-->
 
                                         <div class="col-6 mt-3">
                                             <div class="d-grid">
-                                                <a href="javascript:void(0)" class="btn btn-soft-primary"><i class="uil uil-google"></i> Google</a>
+                                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/SWP391/SignUpURL&response_type=code&client_id=585107335180-i8g585qjpvmq8rvslrel6lkgqv39fjt5.apps.googleusercontent.com&approval_prompt=force" class="btn btn-soft-primary"><i class="uil uil-google"></i> Google</a>
                                             </div>
                                         </div><!--end col-->
 
