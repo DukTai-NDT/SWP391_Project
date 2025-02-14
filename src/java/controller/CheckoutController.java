@@ -12,19 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.DAOMedicalProducts;
-import entity.MedicalProducts;
-import entity.Categories;
-import jakarta.servlet.RequestDispatcher;
-import java.util.Vector;
-import model.DAOCategories;
 
 /**
  *
  * @author quang
  */
-@WebServlet(name="MedicalProductController", urlPatterns={"/MedicalProductURL"})
-public class MedicalProductController extends HttpServlet {
+@WebServlet(name="CheckoutController", urlPatterns={"/CheckoutURL"})
+public class CheckoutController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,32 +30,9 @@ public class MedicalProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        DAOMedicalProducts dao = new DAOMedicalProducts();
-        DAOCategories daoCat = new DAOCategories();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String service = request.getParameter("service");
-            String sql = "select * from MedicalProducts";
-            String sqlCat = "select * from Categories";
-            if(service.equals("listAllProducts")){
-                sql = "select * from MedicalProducts";
-            }
-            
-            if (service.equals("categories")) {
-                String cid = request.getParameter("cid");
-                sql = "select * from MedicalProducts a join Categories b on a.CategoriesID = b.CategoriesID\n"
-                        + "where b.CategoriesID = " + cid;
-            }
-            Vector<MedicalProducts> vector = dao.getMedicalProducts(sql);
-            Vector<Categories> vectorCat = daoCat.getCategories(sqlCat);
-                request.setAttribute("data", vector);
-                request.setAttribute("dataCat", vectorCat);
-                request.getRequestDispatcher("/jsp/displayProduct.jsp").forward(request, response);
-            
-            
-            
-
-            
+            request.getRequestDispatcher("/jsp/displayCheckout.jsp").forward(request, response);
         }
     } 
 

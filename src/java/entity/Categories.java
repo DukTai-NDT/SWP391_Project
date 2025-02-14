@@ -11,14 +11,19 @@ package entity;
 public class Categories {
     private int CategoriesID;
 	private String Name;
+        private String Image;
 
-    public Categories(int CategoriesID, String Name) {
+    public Categories(int CategoriesID, String Name, String Image) {
         this.CategoriesID = CategoriesID;
         this.Name = Name;
+        this.Image = Image;
     }
 
-    public Categories(String Name) {
+    
+
+    public Categories(String Name, String Image) {
         this.Name = Name;
+        this.Image = Image;
     }
 
     public Categories() {
@@ -39,6 +44,16 @@ public class Categories {
     public void setName(String Name) {
         this.Name = Name;
     }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String Image) {
+        this.Image = Image;
+    }
+    
+    
 
     @Override
     public String toString() {

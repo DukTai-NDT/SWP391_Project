@@ -45,6 +45,22 @@
                 width: 100%; /* Đảm bảo ảnh lấp đầy container */
                 height: 200px; /* Cố định chiều cao */
                 object-fit: cover; /* Cắt ảnh sao cho phù hợp mà không bị méo */
+
+
+            }
+            .img-container {
+                    width: 100%;
+                    height: 200px; /* Điều chỉnh chiều cao mong muốn */
+                    overflow: hidden;
+            }
+
+            .img-container img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    display: block;
+                    border-radius: 8px; /* Bo góc nhẹ cho ảnh */
             }
         </style>
         <!-- Css -->
@@ -187,11 +203,11 @@
                         <li class="has-submenu parent-menu-item">
                             <a href="javascript:void(0)">Pharmacy</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="pharmacy.html" class="sub-menu-item">Pharmacy</a></li>
+
                                 <li><a href="MedicalProductURL?service=listAllProducts" class="sub-menu-item">Shop</a></li>
-                        
+
                                 <li><a href="CartURL" class="sub-menu-item">Shop Cart</a></li>
-                                <li><a href="pharmacy-checkout.html" class="sub-menu-item">Checkout</a></li>
+                                <li><a href="CheckoutURL" class="sub-menu-item">Checkout</a></li>
                                 <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
                             </ul>
                         </li>
@@ -583,16 +599,18 @@
                 <div class="row">
                     <div class="col-lg-12 mt-4 pt-2">
                         <div class="slider-range-four">
-                            <% for (Categories cat : dataCat){%>
+                            <% for (Categories cat : dataCat){ %>
                             <div class="tiny-slide">
                                 <a href="MedicalProductURL?service=categories&cid=<%=cat.getCategoriesID()%>" class="card pharpachy-categories border-0 rounded overflow-hidden">
-                                    <img src="images/pharmacy/skin.jpg" class="img-fluid" alt="">
+                                    <div class="img-container">
+                                        <img src="images/pharmacy/shop/<%=cat.getImage()%>" class="img-fluid" alt="">
+                                    </div>
                                     <div class="category-title">
                                         <span class="text-dark title-white"><span class="h5"><%=cat.getName()%></span><br></span>
                                     </div>
                                 </a>
                             </div>
-                            <%}%>
+                            <% } %>  
                             <!--                            <div class="tiny-slide">
                                                             <a href="#" class="card pharpachy-categories border-0 rounded overflow-hidden">
                                                                 <img src="images/pharmacy/sexual.jpg" class="img-fluid" alt="">
@@ -660,22 +678,22 @@
                 </div><!--end row-->
             </div><!--end container-->
 
-            <div class="container mt-100 mt-60">
-                <div class="py-5 px-4 rounded shadow" style="background: url('images/pharmacy/cta.jpg') center;">
-                    <div class="row my-lg-5">
-                        <div class="col-lg-12">
-                            <div class="section-title">
-                                <h1 class="title mb-4">Clinical Equipments <br> Stellar Price</h1>
-                                <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-
-                                <div class="mt-4 pt-2">
-                                    <a href="#" class="btn btn-primary">Shop now</a>
-                                </div>
+            <!--            <div class="container mt-100 mt-60">
+                            <div class="py-5 px-4 rounded shadow" style="background: url('images/pharmacy/cta.jpg') center;">
+                                <div class="row my-lg-5">
+                                    <div class="col-lg-12">
+                                        <div class="section-title">
+                                            <h1 class="title mb-4">Clinical Equipments <br> Stellar Price</h1>
+                                            <p class="para-desc mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+            
+                                            <div class="mt-4 pt-2">
+                                                <a href="#" class="btn btn-primary">Shop now</a>
+                                            </div>
+                                        </div>
+                                    </div>end col
+                                </div>end row
                             </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
-                </div>
-            </div><!--end container-->
+                        </div>end container-->
 
             <div class="container mt-100 mt-60">
                 <div class="row">

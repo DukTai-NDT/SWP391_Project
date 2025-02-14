@@ -72,7 +72,8 @@ public class DAOCategories extends DBConnection {
             while (rs.next()) {
                 int CategoriesID = rs.getInt("CategoriesID");
                 String Name = rs.getString("Name");
-                Categories categories = new Categories(CategoriesID, Name);
+                String Image = rs.getString("Image");
+                Categories categories = new Categories(CategoriesID, Name, Image);
                 vector.add(categories);
             }
         } catch (SQLException ex) {
