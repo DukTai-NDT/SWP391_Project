@@ -426,6 +426,7 @@
                         <div class="table-responsive shadow rounded">
                             <table class="table table-center table-bordered bg-white mb-0">
                                 <thead>
+                                    
                                     <tr>
                                         <th class="text-center py-4" style="min-width: 120px;">Time Table</th>
                                         <th class="text-center py-4" style="min-width: 200px;">Monday</th>

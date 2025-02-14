@@ -279,7 +279,7 @@
 
                             <div class="tab-content p-4" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="overview-tab">
-                                    <h5 class="mb-0">Introduction:</h5>
+                                    <h5 class="mb-0">Introduction: </h5>
 
                                     <p class="text-muted mt-4 mb-0"><%=pa.getYourBio()%></p>
 
