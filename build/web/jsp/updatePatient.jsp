@@ -19,7 +19,7 @@
      %>
         
       <form action="PatientURL" method="post">
-            <input type="hidden" name="service" value="updatePatient">
+            <input type="hidden" name="service" value="updatePatientByUser">
 
      
           <table>
@@ -29,7 +29,7 @@
                
                 <tr>
                     <td><label for="PatientID">PatientID</label></td>
-                    <td><input type="text" name="PatientID" id="PatientID"  readonly=""></td>
+                    <td><input type="number" name="PatientID" id="PatientID"  ></td>
                 </tr>
                 
                <tr>
@@ -40,6 +40,10 @@
                     <td><label for="LastName">LastName</label></td>
                     <td><input type="text" name="LastName" id="LastName" ></td>
                 </tr>
+                   <tr>
+                    <td><label for="Birthday">Birthday</label></td>
+                    <td><input type="date" name="Birthday" id="Birthday"></td>
+                </tr> 
                  <tr>
                     <td><label for="Phone">Phone</label></td>
                     <td><input type="text" name="Phone" id="Phone"></td>
@@ -47,22 +51,36 @@
                  <tr>
                     <td><label for="Email">Email</label></td>
                     <td><input type="text" name="Email" id="Email"></td>
-                </tr> <tr>
+                </tr> 
+              
+                 <tr>
+                    <td><label for="Address">Address</label></td>
+                    <td><input type="text" name="Address" id="Address"></td>
+                </tr> 
+                 <tr>
+                    <td><label for="YourBio">YourBio</label></td>
+                    <td><input type="text" name="YourBio" id="YourBio"></td>
+                </tr> 
+               
+<!--                <tr>
                     <td><label for="Age">Age</label></td>
                     <td><input type="text" name="Age" id="Age" ></td>
-                </tr> <tr>
+                </tr> -->
+<!--                <tr>
                     <td><label for="Gender">Gender</label></td>
                     <td><input type="text" name="Gender" id="Gender" ></td>
-                </tr> <tr>
+                </tr> -->
+<!--                <tr>
                     <td><label for="Height">Height</label></td>
                     <td><input type="text" name="Height" id="Height" ></td>
                 </tr> <tr>
                     <td><label for="Weight">Weight</label></td>
                     <td><input type="text" name="Weight" id="Weight"></td>
-                </tr> <tr>
+                </tr> -->
+<!--                <tr>
                     <td><label for="AccountID">AccountID</label></td>
                     <td><input type="text" name="AccountID" id="AccountID" "></td>
-                </tr>
+                </tr>-->
                 
                   <tr>
                     <td><input type="submit" name="submit" value="UPDATE PATIENT" /> </td>

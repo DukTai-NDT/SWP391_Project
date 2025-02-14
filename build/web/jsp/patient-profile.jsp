@@ -32,11 +32,7 @@
 
     </head>
 
-    <%
-         Vector<Patient> vectorPatient =(Vector<Patient>) request.getAttribute("vectorPatient");
-         Patient pa = (Patient)vectorPatient.get(0);
-    
-    %>
+   
 
     <body>
         <!-- Loader -->
@@ -97,12 +93,12 @@
                                 <a class="dropdown-item d-flex align-items-center text-dark" href="doctor-profile.html">
                                     <img src="images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                     <div class="flex-1 ms-2">
-                                        <span class="d-block mb-1">Mrs. Christopher</span>
-                                        <small class="text-muted">25 Year old</small>
+                                        <span class="d-block mb-1"><%=pa.getLastName()%></span>
+                                        <small class="text-muted"><%=pa.getAge()%> Year old</small>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-dark" href="patient-dashboard.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Dashboard</a>
-                                <a class="dropdown-item text-dark" href="patient-profile.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-user align-middle h6"></i></span> Profile</a>
+                                <a class="dropdown-item text-dark" href="PatientURL"><span class="mb-0 d-inline-block me-1"><i class="uil uil-user align-middle h6"></i></span> Profile</a>
                                 <div class="dropdown-divider border-top"></div>
                                 <a class="dropdown-item text-dark" href="javascript:void(0)"><span class="mb-0 d-inline-block me-1"><i class="uil uil-sign-out-alt align-middle h6"></i></span> Logout</a>
                             </div>
@@ -196,7 +192,11 @@
             </div><!--end container-->
         </header><!--end header-->
         <!-- Navbar End -->
-
+ <%
+         Vector<Patient> vectorPatient =(Vector<Patient>) request.getAttribute("vectorPatient");
+         Patient pa = (Patient)vectorPatient.get(0);
+    
+    %>
         <!-- Start -->
         <section class="bg-hero">
             <div class="container">
@@ -247,11 +247,12 @@
                                     <p class="text-muted mb-0 ms-2"><%=pa.getAddress()%></p>
                                 </div>
 
-                                <!--                                <div class="d-flex align-items-center mt-2">
-                                                                    <i class="uil uil-medical-drip align-text-bottom text-primary h5 mb-0 me-2"></i>
-                                                                    <h6 class="mb-0">Blood Group</h6>
-                                                                    <p class="text-muted mb-0 ms-2">B +</p>
-                                                                </div>-->
+                                <!--                               
+                                <div class="d-flex align-items-center mt-2">                                              
+                                <i class="uil uil-medical-drip align-text-bottom text-primary h5 mb-0 me-2"></i>
+                                <h6 class="mb-0">Blood Group</h6>
+                            \   <p class="text-muted mb-0 ms-2">B +</p>
+                                </div>-->
                             </div>
                         </div>
                     </div><!--end col-->
@@ -280,7 +281,7 @@
                                 <div class="tab-pane fade show active" id="pills-overview" role="tabpanel" aria-labelledby="overview-tab">
                                     <h5 class="mb-0">Introduction:</h5>
 
-                                    <p class="text-muted mt-4 mb-0">Web designers to occupy the space which will later be filled with 'real' content. This is required when, for example, the final text is not yet available. Dummy text is also known as 'fill text'. Dummy texts have been in use by typesetters since the 16th century.</p>
+                                    <p class="text-muted mt-4 mb-0"><%=pa.getYourBio()%></p>
 
                                     <div class="row">
                                         <div class="col-lg-6 col-12 mt-4">
@@ -447,47 +448,43 @@
 
 
                                     <form action="PatientURL" method="post" class="mt-4">
-                                        <input type="hidden" name="service" value="updatePatient">
-                                        
+                                        <input type="hidden" name="service" value="updatePatientByUser">
+                                        <input type="hidden" name="PatientID" value="${patient.patientID}">
                                         
                                         <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label">PatientID</label>
-                                                    <input name="PatientID" id="PatientID" type="number" class="form-control" placeholder="PatientID :">
-                                                </div>
-                                              </div><!--end col-->
-
+                                            
+                                            
+                                            
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">First Name</label>
-                                                    <input name="FirstName" id="FirstName" type="text" class="form-control" placeholder="First Name :">
+                                                    <input name="FirstName" id="FirstName" type="text" value="${patient.firstName}" class="form-control" placeholder="First Name :">
                                                 </div>
                                             </div><!--end col-->
 
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Last Name</label>
-                                                    <input name="LastName" id="LastName" type="text" class="form-control" placeholder="Last Name :">
+                                                    <input name="LastName" id="LastName" type="text" value="${patient.lastName}" class="form-control" placeholder="Last Name :">
                                                 </div>
                                             </div><!--end col-->
 
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Your Email</label>
-                                                    <input name="Email" id="Email" type="email" class="form-control" placeholder="Your email :">
+                                                    <input name="Email" id="Email" type="email" value="${patient.email}" class="form-control" placeholder="Your email :">
                                                 </div> 
                                             </div><!--end col-->
 
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone no.</label>
-                                                    <input name="Phone" id="Phone" type="text" class="form-control" placeholder="Phone no. :">
+                                                    <input name="Phone" id="Phone" type="text" value="${patient.phone}" class="form-control" placeholder="Phone no. :">
                                                 </div>                                                                               
                                             </div><!--end col-->
 
                                           
-
+<!--
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Gender</label>
@@ -496,28 +493,28 @@
                                                         <option value="Female">Female</option>
                                                     </select>
                                                 </div>
-                                            </div><!--end col-->
+                                            </div>end col-->
 
                                           
 
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Birthday</label>
-                                                    <input name="Birthday" id="Birthday" type="date" class="form-control">
+                                                    <input name="Birthday" id="Birthday"  type="date" value="${patient.birthday}" class="form-control">
                                                 </div>
                                             </div><!--end col-->
 
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Address</label>
-                                                    <input name="Address" id="Address" type="text" class="form-control" placeholder="Address :">
+                                                    <input name="Address" id="Address" type="text" value="${patient.address}" class="form-control" placeholder="Address :">
                                                 </div>
                                             </div><!--end col-->
 
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Your Bio Here</label>
-                                                    <textarea name="YourBio" id="YourBio" rows="4" class="form-control" placeholder="Bio :"></textarea>
+                                                    <textarea name="YourBio" id="YourBio" rows="4" class="form-control" placeholder="Bio :">${patient.yourBio}</textarea>
                                                 </div>
                                             </div>
                                         </div><!--end row-->

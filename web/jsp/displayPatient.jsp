@@ -62,7 +62,7 @@
                 <td><%= patient.getHeight()%></td>
                 <td><%= patient.getWeight()%></td>
                 <td><%= patient.getAccountID()%></td>
-                <td><a href="PatientURL?service=updatePatient&paID=<%=patient.getPatientID()%>">Update</a></td>
+                <td><a href="PatientURL?service=updatePatientByUser&paID=<%=patient.getPatientID()%>">Update</a></td>
                 <td><a href="PatientURL?service=deletePatient&paID=<%=patient.getPatientID()%>">Delete</a></td>
                
             </tr>

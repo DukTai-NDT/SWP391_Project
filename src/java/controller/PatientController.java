@@ -53,38 +53,41 @@ public class PatientController extends HttpServlet {
 
             }
 
-            if (service.equals("updatePatient")) {
+            if (service.equals("updatePatientByUser")) {
                 String submit = request.getParameter("submit");
 
                 if (submit == null) {
                     int paID = Integer.parseInt(request.getParameter("paID"));
 
+                    
                     Vector<Patient> vectorPatient = dao.getPatient("SELECT * FROM Patient WHERE PatientID =" + paID);
-                    request.setAttribute("vectorPatient", vectorPatient);
 
-                    request.getRequestDispatcher("/jsp/patient-profile.jsp").forward(request, response);
+                    if (!vectorPatient.isEmpty()) {
+                        Patient patient = vectorPatient.get(0);
+                        request.setAttribute("patient", patient);
+                    }
+
+                    request.getRequestDispatcher("/jsp/updatePatient.jsp").forward(request, response);
 
                 } else {
-                    int patientID = Integer.parseInt(request.getParameter("PatientID"));
-                    String firstName = request.getParameter("FirstName");
-                    String lastName = request.getParameter("LastName");
-                    String phone = request.getParameter("Phone");
-                    String email = request.getParameter("Email");
-                    int age = Integer.parseInt(request.getParameter("Age"));
-                    String gender = request.getParameter("Gender");
-                    double height = Double.parseDouble(request.getParameter("Height"));
-                    double weight = Double.parseDouble(request.getParameter("Weight"));
-                    LocalDate birthday = LocalDate.parse(request.getParameter("Birthday"));
-                    String address = request.getParameter("Address");
-                    String yourBio = request.getParameter("YourBio");
+                    String PatientID = request.getParameter("PatientID");
+                    String FirstName = request.getParameter("FirstName");
+                    String LastName = request.getParameter("LastName");
+                    String Birthday = request.getParameter("Birthday");
+                    String Phone = request.getParameter("Phone");
+                    String Email = request.getParameter("Email");
+                    String Address = request.getParameter("Address");
+                    String YourBio = request.getParameter("YourBio");
 
-                    if (firstName.equals("") || lastName.equals("") || email.equals("")) {
+                    if (FirstName.equals("") || LastName.equals("") || Email.equals("")) {
                         out.print("All fields must not be empty");
                         return;
                     }
+                    int patientID = Integer.parseInt(PatientID);
+                    LocalDate birthday = LocalDate.parse(Birthday);
 
-                    Patient pa = new Patient(patientID, firstName, lastName, phone, email, age, gender, height, weight, patientID, birthday, address, yourBio);
-                    int n = dao.updatePatient(pa);
+                    Patient pa = new Patient(patientID, FirstName, LastName, birthday, Phone, Email, Address, YourBio);
+                    int n = dao.updatePatientByUser(pa);
 
                     response.sendRedirect("PatientURL");
                 }
@@ -115,11 +118,11 @@ public class PatientController extends HttpServlet {
                         out.print("all must not be empety");
                     }
 
-                    int patientID = Integer.parseInt("PatientID");
-                    int age = Integer.parseInt("Age");
-                    double height = Double.parseDouble("Height");
-                    double weight = Double.parseDouble("Weight");
-                    int accountID = Integer.parseInt("AccountID");
+                    int patientID = Integer.parseInt(PatientID);
+                    int age = Integer.parseInt(Age);
+                    double height = Double.parseDouble(Height);
+                    double weight = Double.parseDouble(Weight);
+                    int accountID = Integer.parseInt(AccountID);
 
                     Patient pa = new Patient(patientID, FirstName, LastName, Phone, Email, age, Gender, height, weight, accountID, Birthday, Address, YourBio);
                     int n = dao.addPatient(pa);

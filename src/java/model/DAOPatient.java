@@ -26,7 +26,7 @@ public class DAOPatient extends DBConnection {
             preState.setDouble(7, other.getHeight());
             preState.setDouble(8, other.getWeight());
             preState.setInt(9, other.getAccountID());
-            preState.setDate(10, Date.valueOf(other.getBirthday())); 
+            preState.setDate(10, Date.valueOf(other.getBirthday()));
             preState.setString(11, other.getAddress());
 
             n = preState.executeUpdate();
@@ -39,7 +39,7 @@ public class DAOPatient extends DBConnection {
     public int deletePatient(int PatientID) {
         int n = 0;
         String sql = "DELETE FROM [dbo].[Patient] WHERE PatientID = ?";
-        
+
         try {
             PreparedStatement preState = conn.prepareStatement(sql);
             preState.setInt(1, PatientID);
@@ -51,7 +51,34 @@ public class DAOPatient extends DBConnection {
         return n;
     }
 
-    public int updatePatient(Patient patient) {
+    public int updatePatientByUser(Patient other) {
+    int n = 0;
+    String sql = "UPDATE [dbo].[Patient] SET "
+            + "FirstName = ?, LastName = ?, Phone = ?, Email = ?, "
+            + "Birthday = ?, Address = ?, Bio = ? "
+            + "WHERE PatientID = ?";
+
+    try {
+        PreparedStatement preState = conn.prepareStatement(sql);
+        preState.setString(1, other.getFirstName());
+        preState.setString(2, other.getLastName());
+        preState.setString(3, other.getPhone());
+        preState.setString(4, other.getEmail());
+        preState.setDate(5, Date.valueOf(other.getBirthday()));  
+        preState.setString(6, other.getAddress());  
+        preState.setString(7, other.getYourBio());  
+        preState.setInt(8, other.getPatientID());   
+
+        n = preState.executeUpdate();
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return n;
+}
+
+
+    public int updatePatientByAdmin(Patient patient) {
         int n = 0;
         String sql = "UPDATE [dbo].[Patient] SET "
                 + "FirstName = ?, LastName = ?, Phone = ?, Email = ?, Age = ?, Gender = ?, "
@@ -73,11 +100,11 @@ public class DAOPatient extends DBConnection {
             preState.setString(6, patient.getGender());
             preState.setDouble(7, patient.getHeight());
             preState.setDouble(8, patient.getWeight());
-            preState.setDate(9, Date.valueOf(patient.getBirthday())); 
+            preState.setDate(9, Date.valueOf(patient.getBirthday()));
             preState.setString(10, patient.getAddress());
             preState.setInt(11, patient.getPatientID());
 
-            System.out.println("Executing Update: " + preState.toString()); 
+            System.out.println("Executing Update: " + preState.toString());
 
             n = preState.executeUpdate();
 
@@ -112,7 +139,7 @@ public class DAOPatient extends DBConnection {
                 Double Height = re.getDouble("Height");
                 Double Weight = re.getDouble("Weight");
                 int AccountID = re.getInt("AccountID");
-                LocalDate Birthday = re.getDate("Birthday").toLocalDate(); 
+                LocalDate Birthday = re.getDate("Birthday").toLocalDate();
                 String Address = re.getString("Address");
 
                 Patient patient = new Patient(PatientID, FirstName, LastName, Phone, Email, Age, Gender, Height, Weight, AccountID, Birthday, Address, "");
@@ -129,10 +156,10 @@ public class DAOPatient extends DBConnection {
         DAOPatient dao = new DAOPatient();
 
         // Kiểm thử cập nhật Patient có ID = 16
-        int x = dao.updatePatient(new Patient(16, "Nguyen", "Ba Quang", "1234", "bok@gmail.com",
-                12, "MALE", 190, 80, 1, LocalDate.of(2012, 5, 20), "Hanoi", "This is my bio."));
-
+        int x = dao.updatePatientByUser(new Patient(16,"Quang", "Nguyen Ba", LocalDate.of(2004, 5, 11), 
+                "123456789", "abc@gmail.com", "Bac Ninh", "ok!"));
         if (x > 0) {
+          
             System.out.println("Update successful!");
         } else {
             System.out.println("Update failed!");

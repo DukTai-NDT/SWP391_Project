@@ -55,6 +55,19 @@ public class Patient {
         this.YourBio = YourBio;
     }
 
+    public Patient(int PatientID,String FirstName, String LastName,LocalDate Birthday, String Phone, String Email, String Address, String YourBio) {
+        this.PatientID = PatientID;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
+        this.Birthday = Birthday;
+        this.Phone = Phone;
+        this.Email = Email;
+        this.Address = Address;
+        this.YourBio = YourBio;
+    }
+    
+    
+
     public Patient() {
     }
 
