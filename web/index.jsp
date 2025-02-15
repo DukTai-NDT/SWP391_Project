@@ -1,6 +1,6 @@
-
+<%@ page import=" entity.Account" %>
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
     <head>
         <meta charset="utf-8" />
@@ -24,9 +24,34 @@
         <link rel="stylesheet" href="css/tiny-slider.css"/>
         <!-- Css -->
         <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
+        <style>
+    .auth-links {
+      
+        padding: 10px 15px;
+        text-align: center;
+    }
 
+    .auth-links a {
+        color: white; /* Màu ch? tr?ng */
+    opacity: 0.6; /* Gi?m ?? trong su?t */
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s ease-in-out;
+    }
+
+    .auth-links span {
+        color: white;
+        margin: 0 8px;
+    }
+
+    .auth-links a:hover {
+       opacity: 1;
+    }
+</style>
     </head>
-
+    <%
+        Account account = (Account)session.getAttribute("dataUser");
+    %>
     <body>
         <!-- Loader -->
         <div id="preloader">
@@ -38,7 +63,7 @@
             </div>
         </div>
         <!-- Loader -->
-        
+
         <!-- Navbar STart -->
         <header id="topnav" class="navigation sticky">
             <div class="container">
@@ -53,7 +78,7 @@
                     </a>
                 </div>
                 <!-- End Logo container-->
-                
+
                 <!-- Start Mobile Toggle -->
                 <div class="menu-extras">
                     <div class="menu-item">
@@ -72,7 +97,7 @@
 
                 <!-- Start Dropdown -->
                 <ul class="dropdowns list-inline mb-0">
-                    <li class="list-inline-item mb-0">
+<!--                    <li class="list-inline-item mb-0">
                         <a href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <div class="btn btn-icon btn-pills btn-primary"><i data-feather="settings" class="fea icon-sm"></i></div>
                         </a>
@@ -82,36 +107,47 @@
                         <a href="javascript:void(0)" class="btn btn-icon btn-pills btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                             <i class="uil uil-search"></i>
                         </a>
-                    </li>
+                    </li>-->
 
                     <li class="list-inline-item mb-0 ms-1">
                         <div class="dropdown dropdown-primary">
+
+
+                            <%if(account != null){%>
                             <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/doctors/01.jpg" class="avatar avatar-ex-small rounded-circle" alt=""></button>
                             <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow border-0 mt-3 py-3" style="min-width: 200px;">
-                            
                                 <a class="dropdown-item d-flex align-items-center text-dark" href="doctor-profile.html">
-                                    <img src="images/doctors/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <img src="" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                     <div class="flex-1 ms-2">
-                                        <span class="d-block mb-1">Calvin Carlo</span>
-                                        <small class="text-muted">Orthopedic</small>
+                                        <span class="d-block mb-1">Nguyen</span>
+                                        <small class="text-muted">Tai</small>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-dark" href="doctor-dashboard.jsp"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Dashboard</a>
                                 <a class="dropdown-item text-dark" href="doctor-profile-setting.html"><span class="mb-0 d-inline-block me-1"><i class="uil uil-setting align-middle h6"></i></span> Profile Settings</a>
                                 <div class="dropdown-divider border-top"></div>
-                                <a class="dropdown-item text-dark" href="LoginURL?service=login"><span class="mb-0 d-inline-block me-1"><i class="uil ulogin.jspil-sign-out-alt align-middle h6"></i></span> Logout</a>
+                                <a class="dropdown-item text-dark" href="LogOutURL"><span class="mb-0 d-inline-block me-1"><i class="uil ulogin.jspil-sign-out-alt align-middle h6"></i></span> Logout</a>
+                            </div>        
+                            <%}else{%>
+
+                            <div class="auth-links">
+                                <a href="LoginURL?service=signup">Sign up</a>
+                                <span>|</span>
+                                <a href="LoginURL?service=login">log in</a>
                             </div>
+                            <%}%>
+
                         </div>
                     </li>
                 </ul>
                 <!-- Start Dropdown -->
-        
+
                 <div id="navigation">
                     <!-- Navigation Menu-->   
                     <ul class="navigation-menu nav-left nav-light">
                         <li class="has-submenu parent-menu-item">
                             <a href="index.jsp">Home</a><span class="sub-menu-item"></span>
-                            
+
 
                         </li>
 
@@ -163,7 +199,7 @@
                                 <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
                             </ul>
                         </li>
-        
+
                         <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="aboutus.jsp" class="sub-menu-item"> About Us</a></li>
@@ -199,7 +235,7 @@
                             <img src="images/logo-icon.png" height="50" alt="">
                             <h4 class="display-4 fw-bold text-white title-dark mt-3 mb-4">Meet The <br> Best Doctor</h4>
                             <p class="para-desc text-white-50 mb-0">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                            
+
                             <div class="mt-4 pt-2">
                                 <a href="booking-appointment.html" class="btn btn-primary">Make Appointment</a>
                                 <p class="text-white-50 mb-0 mt-2">T&C apply. Please read <a href="#" class="text-white-50">Terms and Conditions <i class="ri-arrow-right-line align-middle"></i></a></p>
@@ -213,47 +249,47 @@
 
         <!-- Start -->
         <section class="section">
-<!--            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10">
-                        <div class="features-absolute bg-white shadow rounded overflow-hidden card-group">
-                            <div class="card border-0 bg-light p-4">
-                                <i class="ri-heart-pulse-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Emergency Cases</h5>
-                                <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
-                                <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
-                            
-                            <div class="card border-0 p-4">
-                                <i class="ri-dossier-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Doctors Timetable</h5>
-                                <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
-                                <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
-
-                            <div class="card border-0 bg-light p-4">
-                                <i class="ri-time-fill text-primary h2 mb-0"></i>
-                                <h5 class="mt-1">Opening Hours</h5>
-                                <ul class="list-unstyled mt-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Monday - Friday</p>
-                                        <p class="text-primary mb-0">8.00 - 20.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Saturday</p>
-                                        <p class="text-primary mb-0">8.00 - 18.00</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-muted mb-0">Sunday</p>
-                                        <p class="text-primary mb-0">8.00 - 14.00</p>
-                                    </li>
-                                </ul>
-                                <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
-                            </div>
-                        </div>
-                    </div>end col
-                </div>end row
-            </div>end container-->
+            <!--            <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-10">
+                                    <div class="features-absolute bg-white shadow rounded overflow-hidden card-group">
+                                        <div class="card border-0 bg-light p-4">
+                                            <i class="ri-heart-pulse-fill text-primary h2 mb-0"></i>
+                                            <h5 class="mt-1">Emergency Cases</h5>
+                                            <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
+                                            <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
+                                        </div>
+                                        
+                                        <div class="card border-0 p-4">
+                                            <i class="ri-dossier-fill text-primary h2 mb-0"></i>
+                                            <h5 class="mt-1">Doctors Timetable</h5>
+                                            <p class="text-muted mt-2">This is required when, for example, the is not yet available. Dummy text is also known as 'fill text'.</p>
+                                            <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
+                                        </div>
+            
+                                        <div class="card border-0 bg-light p-4">
+                                            <i class="ri-time-fill text-primary h2 mb-0"></i>
+                                            <h5 class="mt-1">Opening Hours</h5>
+                                            <ul class="list-unstyled mt-2">
+                                                <li class="d-flex justify-content-between">
+                                                    <p class="text-muted mb-0">Monday - Friday</p>
+                                                    <p class="text-primary mb-0">8.00 - 20.00</p>
+                                                </li>
+                                                <li class="d-flex justify-content-between">
+                                                    <p class="text-muted mb-0">Saturday</p>
+                                                    <p class="text-primary mb-0">8.00 - 18.00</p>
+                                                </li>
+                                                <li class="d-flex justify-content-between">
+                                                    <p class="text-muted mb-0">Sunday</p>
+                                                    <p class="text-primary mb-0">8.00 - 14.00</p>
+                                                </li>
+                                            </ul>
+                                            <a href="departments.jsp" class="text-primary">Read More <i class="ri-arrow-right-line align-middle"></i></a>
+                                        </div>
+                                    </div>
+                                </div>end col
+                            </div>end row
+                        </div>end container-->
 
             <div class="container mt-100 mt-60">
                 <div class="row align-items-center">
@@ -347,7 +383,7 @@
                             </div>
                         </div>
                     </div><!--end col-->
-                    
+
                     <div class="col-xl-3 col-md-4 col-12 mt-5">
                         <div class="card features feature-primary border-0">
                             <div class="icon text-center rounded-md">
@@ -503,7 +539,7 @@
                                         </td>
                                         <td></td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th class="text-center py-5">02:00PM</th>
                                         <td></td>
@@ -532,7 +568,7 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th class="text-center py-5">04:00PM</th>
                                         <td></td>
@@ -561,7 +597,7 @@
                                             <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">04:30PM - 06:00PM</small>
                                         </td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th class="text-center py-5">06:00PM</th>
                                         <td>
@@ -608,7 +644,7 @@
                                             <small class="bg-soft-primary rounded py-1 px-2 d-block text-center">06:00PM - 07:00PM</small>
                                         </td>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th class="text-center py-5">09:00PM</th>
                                         <td></td>
@@ -686,7 +722,7 @@
                             </div>
                         </div>
                     </div><!--end col-->
-                    
+
                     <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
                         <div class="card team border-0 rounded shadow overflow-hidden">
                             <div class="team-img position-relative">
@@ -704,7 +740,7 @@
                             </div>
                         </div>
                     </div><!--end col-->
-                    
+
                     <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
                         <div class="card team border-0 rounded shadow overflow-hidden">
                             <div class="team-img position-relative">
@@ -722,7 +758,7 @@
                             </div>
                         </div>
                     </div><!--end col-->
-                    
+
                     <div class="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2">
                         <div class="card team border-0 rounded shadow overflow-hidden">
                             <div class="team-img position-relative">
@@ -773,7 +809,7 @@
                                             <p class="text-white-50 mb-0">From Doctors</p>
                                         </div><!--end counter box-->
                                     </div><!--end col-->
-                
+
                                     <div class="col-md-4 mt-4 pt-2">
                                         <div class="counter-box text-center">
                                             <h1 class="mt-3 text-white title-dark"><span class="counter-value" data-target="25">2</span>+</h1>
@@ -781,7 +817,7 @@
                                             <p class="text-white-50 mb-0">High Qualified</p>
                                         </div><!--end counter box-->
                                     </div><!--end col-->
-                
+
                                     <div class="col-md-4 mt-4 pt-2">
                                         <div class="counter-box text-center">
                                             <h1 class="mt-3 text-white title-dark"><span class="counter-value" data-target="1251">95</span>+</h1>
@@ -826,7 +862,7 @@
                                 </ul>
                                 <h6 class="text-primary">- Thomas Israel <small class="text-muted">C.E.O</small></h6>
                             </div><!--end customer testi-->
-                            
+
                             <div class="tiny-slide text-center">
                                 <p class="text-muted h6 fw-normal fst-italic">" The advantage of its Latin origin and the relative meaninglessness of Lorum Ipsum is that the text does not attract attention to itself or distract the viewer's attention from the layout. "</p>
                                 <img src="images/client/02.jpg" class="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3" alt="">
@@ -839,7 +875,7 @@
                                 </ul>
                                 <h6 class="text-primary">- Carl Oliver <small class="text-muted">P.A</small></h6>
                             </div><!--end customer testi-->
-                            
+
                             <div class="tiny-slide text-center">
                                 <p class="text-muted h6 fw-normal fst-italic">" There is now an abundance of readable dummy texts. These are usually used when a text is required purely to fill a space. These alternatives to the classic Lorem Ipsum texts are often amusing and tell short, funny or nonsensical stories. "</p>
                                 <img src="images/client/03.jpg" class="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3" alt="">
@@ -852,7 +888,7 @@
                                 </ul>
                                 <h6 class="text-primary">- Barbara McIntosh <small class="text-muted">M.D</small></h6>
                             </div><!--end customer testi-->
-                            
+
                             <div class="tiny-slide text-center">
                                 <p class="text-muted h6 fw-normal fst-italic">" According to most sources, Lorum Ipsum can be traced back to a text composed by Cicero in 45 BC. Allegedly, a Latin scholar established the origin of the text by compiling all the instances of the unusual word 'consectetur' he could find "</p>
                                 <img src="images/client/04.jpg" class="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3" alt="">
@@ -865,7 +901,7 @@
                                 </ul>
                                 <h6 class="text-primary">- Christa Smith <small class="text-muted">Manager</small></h6>
                             </div><!--end customer testi-->
-                            
+
                             <div class="tiny-slide text-center">
                                 <p class="text-muted h6 fw-normal fst-italic">" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. The most well-known dummy text is the 'Lorem Ipsum', which is said to have originated in the 16th century. "</p>
                                 <img src="images/client/05.jpg" class="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3" alt="">
@@ -878,7 +914,7 @@
                                 </ul>
                                 <h6 class="text-primary">- Dean Tolle <small class="text-muted">Developer</small></h6>
                             </div><!--end customer testi-->
-                            
+
                             <div class="tiny-slide text-center">
                                 <p class="text-muted h6 fw-normal fst-italic">" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. One may speculate that over the course of time certain letters were added or deleted at various positions within the text. "</p>
                                 <img src="images/client/06.jpg" class="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3" alt="">
@@ -983,19 +1019,19 @@
                     <div class="col-lg-2 col-md-2 col-6 text-center py-4">
                         <img src="images/client/google.png" class="avatar avatar-client" alt="">
                     </div><!--end col-->
-                    
+
                     <div class="col-lg-2 col-md-2 col-6 text-center py-4">
                         <img src="images/client/lenovo.png" class="avatar avatar-client" alt="">
                     </div><!--end col-->
-                    
+
                     <div class="col-lg-2 col-md-2 col-6 text-center py-4">
                         <img src="images/client/paypal.png" class="avatar avatar-client" alt="">
                     </div><!--end col-->
-                    
+
                     <div class="col-lg-2 col-md-2 col-6 text-center py-4">
                         <img src="images/client/shopify.png" class="avatar avatar-client" alt="">
                     </div><!--end col-->
-                    
+
                     <div class="col-lg-2 col-md-2 col-6 text-center py-4">
                         <img src="images/client/spotify.png" class="avatar avatar-client" alt="">
                     </div><!--end col-->
@@ -1028,7 +1064,7 @@
                                     <li><a href="login.jsp" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Login</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Departments</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -1041,7 +1077,7 @@
                                     <li><a href="departments.jsp" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Neurology</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Contact us</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -1081,7 +1117,7 @@
                                 <p class="mb-0"><script>document.write(new Date().getFullYear())</script> © Doctris. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="../../../index.jsp" target="_blank" class="text-reset">Shreethemes</a>.</p>
                             </div>
                         </div><!--end col-->
-    
+
                         <div class="col-sm-6 mt-4 mt-sm-0">
                             <ul class="list-unstyled footer-list text-sm-end text-center mb-0">
                                 <li class="list-inline-item"><a href="terms.html" class="text-foot me-2">Terms</a></li>
@@ -1192,7 +1228,7 @@
             </div>
         </div>
         <!-- MOdal End -->
-        
+
         <!-- javascript -->
         <script src="js/bootstrap.bundle.min.js"></script>
         <!-- SLIDER -->

@@ -135,7 +135,7 @@
                                 <ul>
                                     <li><a href="login.jsp">Login</a></li>
                                     <li><a href="signup.jsp">Signup</a></li>
-                                    <li><a href="forgot-password.html">Forgot Password</a></li>
+                                    <li><a href="forgot-password.jsp">Forgot Password</a></li>
                                     <li><a href="login.jsp">Lock Screen</a></li>
                                     <li><a href="thankyou.html">Thank you...!</a></li>
                                 </ul>
@@ -429,7 +429,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div id="department" class="apex-chart"></div>
+<!--                                    <div id="department" class="apex-chart"></div>-->
                                 </div>
                             </div><!--end col-->
                         </div><!--end row-->

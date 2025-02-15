@@ -76,7 +76,7 @@
                                                         <label class="form-check-label" for="remember-check">Remember me</label>
                                                     </div>
                                                 </div>
-                                                <a href="forgot-password.html" class="text-dark h6 mb-0">Forgot password ?</a>
+                                                <a href="forgot-password.jsp" class="text-dark h6 mb-0">Forgot password ?</a>
                                             </div>
                                         </div>
                                         <p style="color: red;"><%=(message!=null?message:"")%></p>

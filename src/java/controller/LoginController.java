@@ -115,6 +115,7 @@ public class LoginController extends HttpServlet {
 
                     } else if (account != null) {
                         if (account.getRoleID() == 1002) {
+                            
                             session.setAttribute("dataUser", account);
                             request.getRequestDispatcher("index.jsp").forward(request, response);
                         } else if (account.getRoleID() == 1003) {
