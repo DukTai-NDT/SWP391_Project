@@ -75,6 +75,23 @@ public class DAOAccount extends DBConnection {
 
     }
 
+    public int changePassword(String email, String password){
+        int n = 0;
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [Password] = ?\n"
+                
+                + " WHERE Account.Email = ?";
+        try {
+            PreparedStatement preState = conn.prepareStatement(sql);
+            preState.setString(1, password);
+            preState.setString(2, email);
+            
+            n = preState.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
     public Vector<Account> getAccount(String sql) {
         Vector<Account> vector = new Vector<>();
         try {
@@ -95,7 +112,23 @@ public class DAOAccount extends DBConnection {
 
         return vector;
     }
+    public Account getAAccount(String email){
+        Account account = null;
+        String sql = "SELECT *  FROM [dbo].[Account] where Email = ? ";
+        try {
+            PreparedStatement preState = conn.prepareStatement(sql);
+            preState.setString(1, email);
+          
+            ResultSet rs = preState.executeQuery();
+            while (rs.next()) {
+                account = new Account(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4),rs.getString(5));
 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return account;
+    }
     public Account getLogin(String userName, String password) {
         Account account = null;
         String sql = "select * from Account where Account.Username = ? and Account.Password = ?";
@@ -161,11 +194,26 @@ public class DAOAccount extends DBConnection {
         }
         System.out.println("-------------");
         Vector<String> stringVector = dao.getEmailAccount();
-        String acc = "dungnt@gmail.com";
-        for (Object object : stringVector) {
-            if (acc.equals(object)) {
+        String acc = "taindhe181162@fpt.edu.vn";
+        String email = "";
+        for (String string : stringVector) {
+            if (acc.equals(string)) {
                 System.out.println("ok");
+                email = (String)string;
             }
         }
+        System.out.println(email);
+        
+        dao.changePassword("taindhe181162@fpt.edu.vn", "123456");
+        
+         Vector<Account> vectorAcc = dao.getAccount("SELECT *  FROM [dbo].[Account] where Email like '"+acc+"' ");
+        for (Account account : vectorAcc) {
+            
+            System.out.println(account);
+        }
+        
+        System.out.println(dao.getAAccount("nguyenductai.12a2tqk@gmail.com"));
+        
+        
     }
 }

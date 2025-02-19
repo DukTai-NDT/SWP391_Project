@@ -119,8 +119,8 @@
                                 <a class="dropdown-item d-flex align-items-center text-dark" href="doctor-profile.html">
                                     <img src="" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                     <div class="flex-1 ms-2">
-                                        <span class="d-block mb-1">Nguyen</span>
-                                        <small class="text-muted">Tai</small>
+                                        <span class="d-block mb-1"><%=account.getUserName()%></span>
+                                        
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-dark" href="doctor-dashboard.jsp"><span class="mb-0 d-inline-block me-1"><i class="uil uil-dashboard align-middle h6"></i></span> Dashboard</a>
@@ -131,9 +131,9 @@
                             <%}else{%>
 
                             <div class="auth-links">
-                                <a href="LoginURL?service=signup">Sign up</a>
+                                <a href="signup.jsp">Sign up</a>
                                 <span>|</span>
-                                <a href="LoginURL?service=login">log in</a>
+                                <a href="LoginURL?service=login">Log in</a>
                             </div>
                             <%}%>
 

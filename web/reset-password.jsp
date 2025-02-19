@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +23,10 @@
         <link href="css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
 
     </head>
-    <% String message = (String)request.getAttribute("message"); 
+    <%
+    String email = (String)session.getAttribute("email");
+    String message = (String)request.getAttribute("message");
+    String token = (String)session.getAttribute("token");
     %>
     <body>
         <!-- Loader -->
@@ -38,9 +40,7 @@
         </div>
         <!-- Loader -->
 
-        <div class="back-to-home rounded d-none d-sm-block">
-            <a href="index.jsp" class="btn btn-icon btn-primary"><i data-feather="home" class="icons"></i></a>
-        </div>
+
 
         <!-- Hero Start -->
         <section class="bg-home d-flex bg-light align-items-center" style="background: url('images/bg/bg-lines-one.png') center;">
@@ -50,26 +50,35 @@
                         <img src="images/logo-dark.png" height="24" class="mx-auto d-block" alt="">
                         <div class="card login-page bg-white shadow mt-4 rounded border-0">
                             <div class="card-body">
-                                <h4 class="text-center">Recover Account</h4>  
-                                <form action="ForgotPasswordURL" class="login-form mt-4">
-                                    <input type="hidden" name="service" value="forgot">
+                                <h4 class="text-center">Reset Password Account</h4>  
+                                <form action="ResetPasswordURL" method="post" class="login-form mt-4">
+                                    
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <p class="text-muted">Please enter your email address. You will receive a link to create a new password via email.</p>
                                             <div class="mb-3">
                                                 <label class="form-label">Email address <span class="text-danger">*</span></label>
-                                                <input type="email" class="form-control" placeholder="Enter Your Email Address" name="email" required="">
+                                                <input type="email" name="Email" class="form-control" value="${email}" placeholder="Enter your email" required>
                                             </div>
                                         </div>
-                                        <p style="color: red;"><%=(message!=null?message:"")%></p>
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">New Password <span class="text-danger">*</span></label>
+                                                <input type="text" name="Password" class="form-control" placeholder="Enter new password" required>
+                                            </div>
+                                        </div>
+                                             <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                                <input type="text" name="CFPassword" class="form-control"  placeholder="Enter confirm password" required>
+                                            </div>
+                                        </div>
+                                            <p style="color: red;"><%=(message!=null?message:"")%></p>
                                         <div class="col-lg-12">
                                             <div class="d-grid">
-                                                <button class="btn btn-primary">Send</button>
+                                                <button name="submit" class="btn btn-primary">Reset Password</button>
                                             </div>
                                         </div>
-                                        <div class="mx-auto">
-                                            <p class="mb-0 mt-3"><small class="text-dark me-2">Remember your password ?</small> <a href="login.jsp" class="text-dark h6 mb-0">Sign in</a></p>
-                                        </div>
+                                       
                                     </div>
                                 </form>
                             </div>
