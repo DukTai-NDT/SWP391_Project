@@ -5,9 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@page import="entity.Cart,java.util.Vector, entity.MedicalProducts" %>
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
     <head>
         <meta charset="utf-8" />
@@ -43,17 +43,17 @@
             </div>
         </div>
         <!-- Loader -->
-        
+
         <!-- Navbar STart -->
         <header id="topnav" class="defaultscroll sticky">
             <div class="container">
                 <!-- Logo container-->
-                <a class="logo" href="index.html">
+                <a class="logo" href="HomePageURL">
                     <img src="images/logo-dark.png" height="24" class="logo-light-mode" alt="">
                     <img src="images/logo-light.png" height="24" class="logo-dark-mode" alt="">
                 </a>                
                 <!-- Logo End -->
-                
+
                 <!-- Start Mobile Toggle -->
                 <div class="menu-extras">
                     <div class="menu-item">
@@ -104,7 +104,7 @@
                     </li>
                 </ul>
                 <!-- Start Dropdown -->
-        
+
                 <div id="navigation">
                     <!-- Navigation Menu-->   
                     <ul class="navigation-menu nav-left">
@@ -157,15 +157,12 @@
                         <li class="has-submenu parent-menu-item">
                             <a href="javascript:void(0)">Pharmacy</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="pharmacy.html" class="sub-menu-item">Pharmacy</a></li>
-                                <li><a href="pharmacy-shop.html" class="sub-menu-item">Shop</a></li>
-                                <li><a href="pharmacy-product-detail.html" class="sub-menu-item">Medicine Detail</a></li>
-                                <li><a href="pharmacy-shop-cart.html" class="sub-menu-item">Shop Cart</a></li>
-                                <li><a href="pharmacy-checkout.html" class="sub-menu-item">Checkout</a></li>
+                                <li><a href="CartURL?service=showCart" class="sub-menu-item">Shop Cart</a></li>
+                                <li><a href="CheckoutURL" class="sub-menu-item">Checkout</a></li>
                                 <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
                             </ul>
                         </li>
-        
+
                         <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
                             <ul class="submenu">
                                 <li><a href="aboutus.html" class="sub-menu-item"> About Us</a></li>
@@ -199,7 +196,7 @@
                         <div class="section-title text-center">
                             <h3 class="sub-title mb-4">Shop Cart</h3>
                             <p class="para-desc mx-auto text-muted">Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
-                        
+
                             <nav aria-label="breadcrumb" class="d-inline-block mt-3">
                                 <ul class="breadcrumb bg-light rounded mb-0 bg-transparent">
                                     <li class="breadcrumb-item"><a href="index.html">Doctris</a></li>
@@ -215,7 +212,7 @@
         <div class="position-relative">
             <div class="shape overflow-hidden text-white">
                 <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
                 </svg>
             </div>
         </div>
@@ -228,92 +225,140 @@
                     <div class="col-12">
                         <div class="table-responsive bg-white shadow rounded">
                             <table class="table table-center table-padding mb-0">
+                                <% Vector<Cart> vector = (Vector<Cart>) session.getAttribute("vectorCart");%>
+                                <% Vector<MedicalProducts> vectorP = (Vector<MedicalProducts>)session.getAttribute("vectorP");%>
+
+                                <%Double totalPrice = (Double) request.getAttribute("totalPrice");%>
                                 <thead>
+
+
                                     <tr>
                                         <th class="border-bottom p-3" style="min-width:20px "></th>
                                         <th class="border-bottom p-3" style="min-width: 300px;">Product</th>
                                         <th class="border-bottom text-center p-3" style="min-width: 160px;">Price</th>
                                         <th class="border-bottom text-center p-3" style="min-width: 190px;">Qty</th>
                                         <th class="border-bottom text-end p-3" style="min-width: 50px;">Total</th>
+
                                     </tr>
+                                    <%if(vector == null) {%>
+                                    <tr>
+                                        <td colspan="5" class="text-center p-3">
+                                            <h1>Cart is empty</h1>
+                                        </td>
+                                    </tr>
+                                    <%} else { 
+                                     for (Cart cart : vector){
+                                    MedicalProducts medicalProduct = null;
+            
+                                    // Tìm sản phẩm tương ứng trong danh sách sản phẩm
+                                    if (vectorP != null) {
+                                        for (MedicalProducts medical : vectorP) {
+                                            if (medical.getMedicationID() == cart.getProductID()) {
+                                                medicalProduct = medical;
+                                                break; // Tìm thấy sản phẩm phù hợp thì thoát vòng lặp
+                                            }
+                                        }
+                                    }
+
+                                    // Nếu tìm thấy sản phẩm, hiển thị thông tin
+                                    if (medicalProduct != null) {%>
+
+
                                 </thead>
 
+
+
+
                                 <tbody>
-                                    <tr>
-                                        <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
-                                        <td class="p-3">
-                                            <div class="d-flex align-items-center">
-                                                <img src="images/pharmacy/shop/ashwagandha.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
-                                                <h6 class="mb-0 ms-3">Ashwagandha Churna</h6>
-                                            </div>
-                                        </td>
-                                        <td class="text-center p-3">$ 255.00</td>
-                                        <td class="text-center shop-list p-3">
-                                            <div class="qty-icons">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
-                                                <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
-                                            </div>
-                                        </td>
-                                        <td class="text-end font-weight-bold p-3">$510.00</td>
-                                    </tr>
+
+
+
+
 
                                     <tr>
                                         <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
                                         <td class="p-3">
                                             <div class="d-flex align-items-center">
-                                                <img src="images/pharmacy/shop/diabend.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
-                                                <h6 class="mb-0 ms-3">Diabend</h6>
-                                            </div>
-                                        </td>
-                                        <td class="text-center p-3">$ 520.00</td>
-                                        <td class="text-center shop-list p-3">
-                                            <div class="qty-icons">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
-                                                <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
-                                            </div>
-                                        </td>
-                                        <td class="text-end font-weight-bold p-3">$520.00</td>
-                                    </tr>
 
-                                    <tr>
-                                        <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
-                                        <td class="p-3">
-                                            <div class="d-flex align-items-center">
-                                                <img src="images/pharmacy/shop/facewash.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
-                                                <h6 class="mb-0 ms-3">Facewash</h6>
-                                            </div>
-                                        </td>
-                                        <td class="text-center p-3">$ 160.00</td>
-                                        <td class="text-center shop-list p-3">
-                                            <div class="qty-icons">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
-                                                <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
-                                            </div>
-                                        </td>
-                                        <td class="text-end font-weight-bold p-3">$640.00</td>
-                                    </tr>
+                                                <img src="images/pharmacy/shop/<%=medicalProduct.getImage()%>" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
 
-                                    <tr>
-                                        <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
-                                        <td class="p-3">
-                                            <div class="d-flex align-items-center">
-                                                <img src="images/pharmacy/shop/handwash.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
-                                                <h6 class="mb-0 ms-3">Dettol handwash</h6>
+                                                <h6 class="mb-0 ms-3"><%=cart.getProductName()%></h6>
                                             </div>
                                         </td>
-                                        <td class="text-center p-3">$ 260.00</td>
+                                        <td class="text-center p-3">$ <%=cart.getUnitPrice()%></td>
                                         <td class="text-center shop-list p-3">
                                             <div class="qty-icons">
                                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
-                                                <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
+                                                <input min="0" name="quantity" value="<%=cart.getQuantity()%>" type="number" class="btn btn-icon btn-primary qty-btn quantity">
                                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
                                             </div>
                                         </td>
-                                        <td class="text-end font-weight-bold p-3">$520.00</td>
+                                        <td class="text-end font-weight-bold p-3"><%=totalPrice%></td>
+
+
                                     </tr>
+                                    <%}%>
+
+                                    <%}%>
+
+                                    <%}%>
+
+                                    <!--                                    <tr>
+                                                                            <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
+                                                                            <td class="p-3">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <img src="images/pharmacy/shop/diabend.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
+                                                                                    <h6 class="mb-0 ms-3">Diabend</h6>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-center p-3">$ 520.00</td>
+                                                                            <td class="text-center shop-list p-3">
+                                                                                <div class="qty-icons">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
+                                                                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-end font-weight-bold p-3">$520.00</td>
+                                                                        </tr>
+                                    
+                                                                        <tr>
+                                                                            <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
+                                                                            <td class="p-3">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <img src="images/pharmacy/shop/facewash.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
+                                                                                    <h6 class="mb-0 ms-3">Facewash</h6>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-center p-3">$ 160.00</td>
+                                                                            <td class="text-center shop-list p-3">
+                                                                                <div class="qty-icons">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
+                                                                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-end font-weight-bold p-3">$640.00</td>
+                                                                        </tr>
+                                    
+                                                                        <tr>
+                                                                            <td class="h5 p-3 text-center"><a href="#" class="text-danger"><i class="uil uil-times"></i></a></td>
+                                                                            <td class="p-3">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <img src="images/pharmacy/shop/handwash.jpg" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
+                                                                                    <h6 class="mb-0 ms-3">Dettol handwash</h6>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-center p-3">$ 260.00</td>
+                                                                            <td class="text-center shop-list p-3">
+                                                                                <div class="qty-icons">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-primary minus">-</button>
+                                                                                    <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-primary qty-btn quantity">
+                                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-primary plus">+</button>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td class="text-end font-weight-bold p-3">$520.00</td>
+                                                                        </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -376,7 +421,7 @@
                                     <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Login</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Departments</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -389,7 +434,7 @@
                                     <li><a href="#" class="text-foot"><i class="mdi mdi-chevron-right me-1"></i> Neurology</a></li>
                                 </ul>
                             </div><!--end col-->
-                            
+
                             <div class="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                                 <h5 class="text-light title-dark footer-head">Contact us</h5>
                                 <ul class="list-unstyled footer-list mt-4">
@@ -429,7 +474,7 @@
                                 <p class="mb-0"><script>document.write(new Date().getFullYear())</script> © Doctris. Design with <i class="mdi mdi-heart text-danger"></i> by <a href="../../../index.html" target="_blank" class="text-reset">Shreethemes</a>.</p>
                             </div>
                         </div><!--end col-->
-    
+
                         <div class="col-sm-6 mt-4 mt-sm-0">
                             <ul class="list-unstyled footer-list text-sm-end text-center mb-0">
                                 <li class="list-inline-item"><a href="terms.html" class="text-foot me-2">Terms</a></li>
@@ -516,7 +561,7 @@
             </div>
         </div>
         <!-- Offcanvas End -->
-        
+
         <!-- javascript -->
         <script src="js/bootstrap.bundle.min.js"></script>
         <!-- Icons -->

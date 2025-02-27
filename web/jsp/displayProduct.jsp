@@ -206,7 +206,7 @@
 
                                 <li><a href="MedicalProductURL?service=listAllProducts" class="sub-menu-item">Shop</a></li>
 
-                                <li><a href="CartURL" class="sub-menu-item">Shop Cart</a></li>
+                                <li><a href="CartURL?service=showCart" class="sub-menu-item">Shop Cart</a></li>
                                 <li><a href="CheckoutURL" class="sub-menu-item">Checkout</a></li>
                                 <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
                             </ul>
@@ -333,7 +333,7 @@
                                 <ul class="list-unstyled shop-icons">
                                     <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
                                     <li class="mt-2"><a href="ProductDetailURL?service=detailProduct&pid=<%=medical.getMedicationID()%>" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
-                                    <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                    <li class="mt-2"><a href="CartURL?service=add2cart&proid=<%=medical.getMedicationID()%>" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
                                 </ul>                                
 
                                 <div class="qty-icons">

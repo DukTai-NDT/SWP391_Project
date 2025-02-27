@@ -43,6 +43,10 @@ public class MedicalProductController extends HttpServlet {
             String service = request.getParameter("service");
             String sql = "select * from MedicalProducts";
             String sqlCat = "select * from Categories";
+            if(service == null){
+                service = "listAllProducts";
+            }
+            
             if(service.equals("listAllProducts")){
                 sql = "select * from MedicalProducts";
             }

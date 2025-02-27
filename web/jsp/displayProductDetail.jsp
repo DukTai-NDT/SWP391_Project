@@ -168,11 +168,8 @@
                         <li class="has-submenu parent-menu-item">
                             <a href="javascript:void(0)">Pharmacy</a><span class="menu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="pharmacy.html" class="sub-menu-item">Pharmacy</a></li>
-                                <li><a href="MedicalProductURL?service=listAllProducts" class="sub-menu-item">Shop</a></li>
-                                <li><a href="pharmacy-product-detail.html" class="sub-menu-item">Medicine Detail</a></li>
-                                <li><a href="CartURL" class="sub-menu-item">Shop Cart</a></li>
-                                <li><a href="pharmacy-checkout.html" class="sub-menu-item">Checkout</a></li>
+                                <li><a href="CartURL?service=showCart" class="sub-menu-item">Shop Cart</a></li>
+                                <li><a href="CheckoutURL" class="sub-menu-item">Checkout</a></li>
                                 <li><a href="pharmacy-account.html" class="sub-menu-item">Account</a></li>
                             </ul>
                         </li>
@@ -270,8 +267,8 @@
                             </div>
 
                             <div class="mt-4 pt-2">
-                                <a href="#" class="btn btn-primary">Shop Now</a>
-                                <a href="#" class="btn btn-soft-primary ms-2">Add to Cart</a>
+                                <a href="MedicalProductURL" class="btn btn-primary">Shop Now</a>
+                                <a href="CartURL?service=add2cart&proid=<%=medical.getMedicationID()%>" class="btn btn-soft-primary ms-2">Add to Cart</a>
                             </div>
                         </div>
                     </div><!--end col-->
